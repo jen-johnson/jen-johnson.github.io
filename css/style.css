@@ -43,7 +43,7 @@
 
 .navbar-toggler:hover,
 .navbar-toggler:focus {
-    background-color: #ebd122;
+    background-color: #468;
     color: #242424;
     fill: #242424;
     border-color: #fff;
@@ -116,7 +116,7 @@ a:hover {
 
 body {
 
-    font-family:"Noto Sans" ;
+    font-family:"Noto Sans";
     background-color: #f7f1fa;
     color: #249424;
 }

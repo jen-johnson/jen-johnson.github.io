@@ -1,0 +1,40 @@
+
+#map {
+    height: 400px;
+    width: 80%;
+    display: inline-block;
+}
+
+#panel {
+    width: 26%;
+    padding: 20px;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    line-height: 42px;
+}
+
+.range-slider {
+    width: 50%;
+}
+
+#forward {
+    float: right;
+}
+
+#reverse {
+    float: left;
+}
+
+body {
+    
+    font-family: 'Georgia', serif;
+    background-color: #d0f0c0;
+    color: #242424;
+
+}
+
+H3{
+    font-style: italic
+    
+}

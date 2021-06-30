@@ -113,6 +113,14 @@ a:hover {
     border-radius: 0px;
 }
 
+#picture {
+    background-image: url("../assets/mountain3.png");
+    text-align: center;
+    color: #fff;
+    padding: 3%;
+    border-radius: 0px;
+}
+
 .jumbotron h2 {
     font-size: 36px;
     font-weight: bold;

@@ -34,24 +34,58 @@ var grayscale =L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/
     accessToken: 'pk.eyJ1IjoiamVubmFtajEzIiwiYSI6ImNrbXAwcmFpeDBidG8ycHQ5cTV3eHltZGcifQ.XOONew0p_zpFabjGHU8aXQ'
 }).addTo(map);
     
-var china     = L.marker([0, 0]).bindPopup('CO2 emssions in China increased by 44% in the ten years.'),
-    india    = L.marker([22.8,79.61]).bindPopup('CO2 emssions in India increased by 63% in the ten years.'),
-    aurora    = L.marker([39.73, -104.8]).bindPopup('This is Aurora, CO.'),
-    golden    = L.marker([39.77, -105.23]).bindPopup('This is Golden, CO.');
-var cities = L.layerGroup([china, india, aurora, golden]);
+var Esri_WorldGrayCanvas = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+	maxZoom: 16
+}).addTo(map);
+
+var Esri_WorldShadedRelief = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri',
+	maxZoom: 13
+}).addTo(map);
+
+var iconmarker = L.icon({
+    iconUrl:'img/icon.png',
+    iconSize:     [20, 45], // size of the icon
+    shadowSize:   [50, 64], // size of the shadow
+    iconAnchor:   [10, 40], // point of the icon which will correspond to marker's location
+    shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+})
+    
+var china     = L.marker([36.56, 103.8],{icon:iconmarker}).bindPopup('CO2 emssions in China increased by 44% in the ten years.'),
+    india    = L.marker([22.8,79.61],{icon:iconmarker}).bindPopup('CO2 emssions in India increased by 63% in the ten years.'),
+    US    = L.marker([45.679547, -112.461],{icon:iconmarker}).bindPopup('CO2 emssions in the United States decreased by 19% in the ten years.'),
+    Indonesia    = L.marker([-2.21505, 117.2401],{icon:iconmarker}).bindPopup('CO2 emssions in Indonesia increased by 43% in the ten years.');
+    Pakistan   = L.marker([29.9497515, 69.33957937],{icon:iconmarker}).bindPopup('CO2 emssions in Pakistan increased by 11% in the ten years.');
+    Brazil    = L.marker([-10.787777, -53.097831],{icon:iconmarker}).bindPopup('CO2 emssions in Brazil increased by 21% in the ten years.');
+    Nigeria    = L.marker([9.59411452, 8.08943895],{icon:iconmarker}).bindPopup('CO2 emssions in Nigeria decreased by 6% in the ten years.');
+    Bangladesh   = L.marker([23.86731158, 90.23812743],{icon:iconmarker}).bindPopup('CO2 emssions in Bangladesh increased by 72% in the ten years.');
+    Russia    = L.marker([61.98052209, 96.68656112],{icon:iconmarker}).bindPopup('CO2 emssions in Russian Federation increased by 3% in the ten years.');
+    Mexico   = L.marker([23.94753724, -102.5234517],{icon:iconmarker}).bindPopup('CO2 emssions in Mexico decreased by 11% in the ten years.');
+    Japan    = L.marker([37.59230135, 138.0308956],{icon:iconmarker}).bindPopup('CO2 emssions in Japan decreased by 7% in the ten years.');
+    Ethiopia    = L.marker([8.62278679, 39.60080098],{icon:iconmarker}).bindPopup('CO2 emssions in Ethiopia increased by 105% in the ten years.');
+    Phillippines   = L.marker([11.77536778, 122.8839325],{icon:iconmarker}).bindPopup('CO2 emssions in Philippines increased by 53% in the ten years.');
+    Egypt    = L.marker([26.49593, 29.861900],{icon:iconmarker}).bindPopup('CO2 emssions in Egypt increased by 9% in the ten years.');
+    Vietnam    = L.marker([16.64602, 106.2991],{icon:iconmarker}).bindPopup('CO2 emssions in Vietnam increased by 69% in the ten years.');
+var cities = L.layerGroup([china, india, US, Indonesia, Pakistan, Brazil, Nigeria, Bangladesh, Russia, Mexico, Japan, Ethiopia, Phillippines, Egypt, Vietnam]);
     cities.addTo(map)
-var emissions = getData(map);
+
 
     var overlayMaps = {
-    "Cities": cities,
+    "Percent Change (CO2)": cities,
 };
     var baseMaps = {
     "Grayscale": grayscale,
-    "Streets": streets
+    "Streets": streets,
+    "Esri Gray Canvas": Esri_WorldGrayCanvas,
+    "Esri World Shaded Relief": Esri_WorldShadedRelief
 };
 L.control.layers(baseMaps, overlayMaps).addTo(map);
+
 L.control.scale().addTo(map);
 
+getData(map);
 //    var emissions = getData(map);
 };
 
@@ -59,7 +93,7 @@ L.control.scale().addTo(map);
 //calculate the radius of each proportional symbol
 function calcPropRadius(attValue) {
     //scale factor to adjust symbol size evenly
-    var scaleFactor = 300;
+    var scaleFactor = 280;
     //area based on attribute value and scale factor
     var area = attValue * scaleFactor;
     //radius calculated based on area
@@ -92,8 +126,8 @@ function pointToLayer(feature, latlng, attributes){
 
     //create marker options
     var options = {
-        fillColor: "#808080",
-        color: "#006300",
+        fillColor: "#80c904",
+        color: "#80c904",
         weight: 1,
         opacity: 1,
         fillOpacity: 0.8
@@ -195,10 +229,10 @@ function createLegend(map, attributes){
             var container = L.DomUtil.create('div', 'legend-control-container');
 
             //add temporal legend div to container
-            $(container).append('<div id="temporal-legend" style= font-display:bold>')
+            $(container).append('<div id="temporal-legend" font-display=bold>')
 
             //Example 3.5 line 15...Step 1: start attribute legend svg string
-            var svg = '<svg id="attribute-legend" width="160px" height="60px">';
+            var svg = '<svg id="attribute-legend" width="160px" height="60px" fill="#fff">';
 
             // //array of circle names to base loop on
             // var circles = ["max", "mean", "min"];
@@ -223,7 +257,7 @@ function createLegend(map, attributes){
             //loop to add each circle and text to svg string
             for (var circle in circles){
                 //circle string
-                svg += '<circle class="legend-circle" id="' + circle + '" fill="#808080" fill-opacity="0.8" stroke="#000000" cx="30"/>';
+                svg += '<circle class="legend-circle" id="' + circle + '" fill="#80c904" fill-opacity="0.8" stroke="#000000" cx="30"/>';
 
                 //text string
                 svg += '<text id="' + circle + '-text" x="65" y="' + circles[circle] + '"></text>';

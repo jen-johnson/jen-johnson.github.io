@@ -11,19 +11,55 @@ function createMap(){
     });
 
     //add OSM base tilelayer
-    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', {
-	attribution: 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC',
-	maxZoom: 16
-    }).addTo(map);
+//    L.tileLayer('https://api.mapbox.com/styles/v1/jennamj13/ckn9mlygj0bwy17p5e6villpa/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiamVubmFtajEzIiwiYSI6ImNrbXAwcmFpeDBidG8ycHQ5cTV3eHltZGcifQ.XOONew0p_zpFabjGHU8aXQ', {
+//maxZoom: 18,
+//attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+//}).addTo(map);
+    
+var streets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: 'pk.eyJ1IjoiamVubmFtajEzIiwiYSI6ImNrbXAwcmFpeDBidG8ycHQ5cTV3eHltZGcifQ.XOONew0p_zpFabjGHU8aXQ'
+}).addTo(map);
 
-    //call getData function
-    getData(map);
+var grayscale =L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: 'pk.eyJ1IjoiamVubmFtajEzIiwiYSI6ImNrbXAwcmFpeDBidG8ycHQ5cTV3eHltZGcifQ.XOONew0p_zpFabjGHU8aXQ'
+}).addTo(map);
+    
+var china     = L.marker([0, 0]).bindPopup('CO2 emssions in China increased by 44% in the ten years.'),
+    india    = L.marker([22.8,79.61]).bindPopup('CO2 emssions in India increased by 63% in the ten years.'),
+    aurora    = L.marker([39.73, -104.8]).bindPopup('This is Aurora, CO.'),
+    golden    = L.marker([39.77, -105.23]).bindPopup('This is Golden, CO.');
+var cities = L.layerGroup([china, india, aurora, golden]);
+    cities.addTo(map)
+var emissions = getData(map);
+
+    var overlayMaps = {
+    "Cities": cities,
 };
+    var baseMaps = {
+    "Grayscale": grayscale,
+    "Streets": streets
+};
+L.control.layers(baseMaps, overlayMaps).addTo(map);
+L.control.scale().addTo(map);
+
+//    var emissions = getData(map);
+};
+
 
 //calculate the radius of each proportional symbol
 function calcPropRadius(attValue) {
     //scale factor to adjust symbol size evenly
-    var scaleFactor = 200;
+    var scaleFactor = 300;
     //area based on attribute value and scale factor
     var area = attValue * scaleFactor;
     //radius calculated based on area
@@ -56,11 +92,11 @@ function pointToLayer(feature, latlng, attributes){
 
     //create marker options
     var options = {
-        fillColor: "#006300",
-        color: "#000",
+        fillColor: "#808080",
+        color: "#006300",
         weight: 1,
         opacity: 1,
-        fillOpacity: 0.6
+        fillOpacity: 0.8
     };
 
     //For each feature, determine its value for the selected attribute
@@ -95,6 +131,7 @@ function pointToLayer(feature, latlng, attributes){
     //return the circle marker to the L.geoJson pointToLayer option
     return layer;
 };
+
 
 //build an attributes array from the data
 function processData(data){
@@ -146,10 +183,11 @@ function updatePropSymbols(map, attribute){
     updateLegend(map, attribute);
 };
 
+
 function createLegend(map, attributes){
     var LegendControl = L.Control.extend({
         options: {
-            position: 'bottomright'
+            position: 'bottomleft'
         },
 
         onAdd: function (map) {
@@ -157,7 +195,7 @@ function createLegend(map, attributes){
             var container = L.DomUtil.create('div', 'legend-control-container');
 
             //add temporal legend div to container
-            $(container).append('<div id="temporal-legend">')
+            $(container).append('<div id="temporal-legend" style= font-display:bold>')
 
             //Example 3.5 line 15...Step 1: start attribute legend svg string
             var svg = '<svg id="attribute-legend" width="160px" height="60px">';
@@ -185,7 +223,7 @@ function createLegend(map, attributes){
             //loop to add each circle and text to svg string
             for (var circle in circles){
                 //circle string
-                svg += '<circle class="legend-circle" id="' + circle + '" fill="#006300" fill-opacity="0.8" stroke="#000000" cx="30"/>';
+                svg += '<circle class="legend-circle" id="' + circle + '" fill="#808080" fill-opacity="0.8" stroke="#000000" cx="30"/>';
 
                 //text string
                 svg += '<text id="' + circle + '-text" x="65" y="' + circles[circle] + '"></text>';
@@ -268,11 +306,28 @@ function updateLegend(map, attribute){
     };
 };
 
+function createSearchControl(map, attribute){
+    var markersLayer = new L.LayerGroup();	//layer contain searched elements
+	
+	map.addLayer(markersLayer);
+
+	var controlSearch = new L.Control.Search({
+		position:'topright',		
+		layer: markersLayer,
+		initial: false,
+		zoom: 12,
+		marker: false
+	});
+
+	map.addControl( controlSearch );
+
+                              };
+
 //Step 1: Create new Leaflet control
 function createSequenceControls(map, attributes){
     var SequenceControl = L.Control.extend({
         options: {
-            position: 'bottomleft'
+            position: 'bottomright'
         },
 
         onAdd: function (map) {
@@ -283,8 +338,10 @@ function createSequenceControls(map, attributes){
             $(container).append('<input class="range-slider" type="range">');
 
             //add skip buttons
-            $(container).append('<button class="skip" id="reverse" title="Reverse">Reverse</button>');
-            $(container).append('<button class="skip" id="forward" title="Forward">Skip</button>');
+            $(container).append('<button class="skip" id="reverse" title="Reverse"><img src="img/reverse.png"></button>');
+            $(container).append('<button class="skip" id="forward" title="Forward"><img src="img/forward.png"></button>');
+//            $('#reverse').html('<img src="img/reverse.png">');
+            $('#forward').html('<img src="img/forward.png">');
 
             //disable any mouse event listeners for the container
             L.DomEvent.disableClickPropagation(container);
@@ -297,7 +354,7 @@ function createSequenceControls(map, attributes){
 
 	//set slider attributes
 	$('.range-slider').attr({
-		max: 6,
+		max: 9,
 		min: 0,
 		value: 0,
 		step: 1
@@ -318,11 +375,11 @@ function createSequenceControls(map, attributes){
 		if ($(this).attr('id') == 'forward'){
 			index++;
 			//if past the last attribute, wrap around to first attribute
-			index = index > 6 ? 0 : index;
+			index = index > 9 ? 0 : index;
 		} else if ($(this).attr('id') == 'reverse'){
 			index--;
 			//if past the first attribute, wrap around to last attribute
-			index = index < 0 ? 6 : index;
+			index = index < 0 ? 9 : index;
 		};
 
 		//update slider
@@ -342,10 +399,12 @@ function createSequenceControls(map, attributes){
 	});
 };
 
+
+	
 //Import GeoJSON data
 function getData(map){
     //load the data
-    $.ajax("data/MegaCities.geojson", {
+    $.ajax("data/emission.geojson", {
         dataType: "json",
         success: function(response){
             //create an attributes array
@@ -358,5 +417,6 @@ function getData(map){
         }
     });
 };
+
 
 $(document).ready(createMap);

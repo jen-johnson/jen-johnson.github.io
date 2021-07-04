@@ -113,13 +113,14 @@ a:hover {
     border-radius: 0px;
 }
 
-#picture {
-    background-image: url("../assets/mountain3.png");
+.jumbotron2 {
+    background-color: black;
     text-align: center;
-    color: #fff;
-    padding: 3%;
+    color: #000000;
+    padding: 1%;
     border-radius: 0px;
 }
+
 
 .jumbotron h2 {
     font-size: 36px;
@@ -136,4 +137,86 @@ body {
     font-family: 'Georgia', sans-serif;
     background-color: honeydew;
     color: #249424;
+    font-style: oblique
+}
+
+.menu-ui {
+  background:#fff;
+  position:absolute;
+  top:10px;right:10px;
+  z-index:1;
+  border-radius:3px;
+  width:120px;
+  border:1px solid rgba(0,0,0,0.4);
+  }
+  .menu-ui a {
+    font-size:13px;
+    color:#404040;
+    display:block;
+    margin:0;padding:0;
+    padding:10px;
+    text-decoration:none;
+    border-bottom:1px solid rgba(0,0,0,0.25);
+    text-align:center;
+    }
+    .menu-ui a:first-child {
+      border-radius:3px 3px 0 0;
+      }
+    .menu-ui a:last-child {
+      border:none;
+      border-radius:0 0 3px 3px;
+      }
+    .menu-ui a:hover {
+      background:#f8f8f8;
+      color:#404040;
+      }
+    .menu-ui a.active,
+    .menu-ui a.active:hover {
+      background:#3887BE;
+      color:#FFF;
+      }
+
+#mapid {
+    height: 400px;
+    width: 120%;
+    display: right;
+}
+
+#panel {
+    width: 100%;
+    padding: 20px;
+    display: right;
+    vertical-align: top;
+    text-align: center;
+    
+}
+
+.range-slider {
+    width: 100%;
+    column-fill: auto
+}
+
+#forward {
+    float: right;
+    background-color: transparent
+   
+}
+
+#reverse {
+    float: left;
+    background-color: transparent
+}
+
+body {
+    
+    font-family: 'Georgia', serif;
+    font-style: bold
+    background-color: #d0f0c0;
+    color: #242424;
+
+}
+
+H3{
+    font-style: italic
+    
 }

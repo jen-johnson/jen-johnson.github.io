@@ -8,18 +8,19 @@
 #panel {
     width: 26%;
     padding: 20px;
-    display: inline-block;
+    display: right;
     vertical-align: top;
     text-align: center;
-    line-height: 42px;
+    
 }
 
 .range-slider {
-    width: 50%;
+    width: 100%;
 }
 
 #forward {
     float: right;
+    background-color: #FFF
 }
 
 #reverse {
@@ -29,6 +30,7 @@
 body {
     
     font-family: 'Georgia', serif;
+    font-style: bold
     background-color: #d0f0c0;
     color: #242424;
 
@@ -38,3 +40,4 @@ H3{
     font-style: italic
     
 }
+

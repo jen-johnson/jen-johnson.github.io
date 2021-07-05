@@ -42,21 +42,21 @@ var iconmarker = L.icon({
     popupAnchor:  [0, -46] // point from which the popup should open relative to the iconAnchor
 })
     
-var china     = L.marker([36.56, 103.8],{icon:iconmarker}).bindPopup('CO2 emssions in China increased by 44% in the ten years.'),
-    india    = L.marker([22.8,79.61],{icon:iconmarker}).bindPopup('CO2 emssions in India increased by 63% in the ten years.'),
-    US    = L.marker([45.679547, -112.461],{icon:iconmarker}).bindPopup('CO2 emssions in the United States decreased by 19% in the ten years.'),
-    Indonesia    = L.marker([-2.21505, 117.2401],{icon:iconmarker}).bindPopup('CO2 emssions in Indonesia increased by 43% in the ten years.');
-    Pakistan   = L.marker([29.9497515, 69.33957937],{icon:iconmarker}).bindPopup('CO2 emssions in Pakistan increased by 11% in the ten years.');
-    Brazil    = L.marker([-10.787777, -53.097831],{icon:iconmarker}).bindPopup('CO2 emssions in Brazil increased by 21% in the ten years.');
-    Nigeria    = L.marker([9.59411452, 8.08943895],{icon:iconmarker}).bindPopup('CO2 emssions in Nigeria decreased by 6% in the ten years.');
-    Bangladesh   = L.marker([23.86731158, 90.23812743],{icon:iconmarker}).bindPopup('CO2 emssions in Bangladesh increased by 72% in the ten years.');
-    Russia    = L.marker([61.98052209, 96.68656112],{icon:iconmarker}).bindPopup('CO2 emssions in Russian Federation increased by 3% in the ten years.');
-    Mexico   = L.marker([23.94753724, -102.5234517],{icon:iconmarker}).bindPopup('CO2 emssions in Mexico decreased by 11% in the ten years.');
-    Japan    = L.marker([37.59230135, 138.0308956],{icon:iconmarker}).bindPopup('CO2 emssions in Japan decreased by 7% in the ten years.');
-    Ethiopia    = L.marker([8.62278679, 39.60080098],{icon:iconmarker}).bindPopup('CO2 emssions in Ethiopia increased by 105% in the ten years.');
-    Phillippines   = L.marker([11.77536778, 122.8839325],{icon:iconmarker}).bindPopup('CO2 emssions in Philippines increased by 53% in the ten years.');
-    Egypt    = L.marker([26.49593, 29.861900],{icon:iconmarker}).bindPopup('CO2 emssions in Egypt increased by 9% in the ten years.');
-    Vietnam    = L.marker([16.64602, 106.2991],{icon:iconmarker}).bindPopup('CO2 emssions in Vietnam increased by 69% in the ten years.');
+var china     = L.marker([36.56, 103.8],{icon:iconmarker}).bindPopup('CO2 emissions in China increased by 44% in the ten years.'),
+    india    = L.marker([22.8,79.61],{icon:iconmarker}).bindPopup('CO2 emissions in India increased by 63% in the ten years.'),
+    US    = L.marker([45.679547, -112.461],{icon:iconmarker}).bindPopup('CO2 emissions in the United States decreased by 19% in the ten years.'),
+    Indonesia    = L.marker([-2.21505, 117.2401],{icon:iconmarker}).bindPopup('CO2 emissions in Indonesia increased by 43% in the ten years.');
+    Pakistan   = L.marker([29.9497515, 69.33957937],{icon:iconmarker}).bindPopup('CO2 emissions in Pakistan increased by 11% in the ten years.');
+    Brazil    = L.marker([-10.787777, -53.097831],{icon:iconmarker}).bindPopup('CO2 emissions in Brazil increased by 21% in the ten years.');
+    Nigeria    = L.marker([9.59411452, 8.08943895],{icon:iconmarker}).bindPopup('CO2 emissions in Nigeria decreased by 6% in the ten years.');
+    Bangladesh   = L.marker([23.86731158, 90.23812743],{icon:iconmarker}).bindPopup('CO2 emissions in Bangladesh increased by 72% in the ten years.');
+    Russia    = L.marker([61.98052209, 96.68656112],{icon:iconmarker}).bindPopup('CO2 emissions in Russian Federation increased by 3% in the ten years.');
+    Mexico   = L.marker([23.94753724, -102.5234517],{icon:iconmarker}).bindPopup('CO2 emissions in Mexico decreased by 11% in the ten years.');
+    Japan    = L.marker([37.59230135, 138.0308956],{icon:iconmarker}).bindPopup('CO2 emissions in Japan decreased by 7% in the ten years.');
+    Ethiopia    = L.marker([8.62278679, 39.60080098],{icon:iconmarker}).bindPopup('CO2 emissions in Ethiopia increased by 105% in the ten years.');
+    Phillippines   = L.marker([11.77536778, 122.8839325],{icon:iconmarker}).bindPopup('CO2 emissions in Philippines increased by 53% in the ten years.');
+    Egypt    = L.marker([26.49593, 29.861900],{icon:iconmarker}).bindPopup('CO2 emissions in Egypt increased by 9% in the ten years.');
+    Vietnam    = L.marker([16.64602, 106.2991],{icon:iconmarker}).bindPopup('CO2 emissions in Vietnam increased by 69% in the ten years.');
 var cities = L.layerGroup([china, india, US, Indonesia, Pakistan, Brazil, Nigeria, Bangladesh, Russia, Mexico, Japan, Ethiopia, Phillippines, Egypt, Vietnam]);
     cities.addTo(map)
 

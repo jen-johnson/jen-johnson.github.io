@@ -221,7 +221,7 @@ function createLegend(map, attributes){
             $(container).append('<div id="temporal-legend" font-display=bold>')
 
             //Example 3.5 line 15...Step 1: start attribute legend svg string
-            var svg = '<svg id="attribute-legend" width="160px" height="60px" fill="#fff">';
+            var svg = '<svg id="attribute-legend" width="160px" height="60px" fill="#000000">';
 
             // //array of circle names to base loop on
             // var circles = ["max", "mean", "min"];

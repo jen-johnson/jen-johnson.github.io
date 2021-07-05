@@ -39,7 +39,7 @@ var iconmarker = L.icon({
     shadowSize:   [50, 64], // size of the shadow
     iconAnchor:   [10, 40], // point of the icon which will correspond to marker's location
     shadowAnchor: [4, 62],  // the same for the shadow
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    popupAnchor:  [0, -46] // point from which the popup should open relative to the iconAnchor
 })
     
 var china     = L.marker([36.56, 103.8],{icon:iconmarker}).bindPopup('CO2 emssions in China increased by 44% in the ten years.'),

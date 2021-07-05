@@ -117,7 +117,7 @@ a:hover {
     background-color: #343a40;
     text-align: center;
     color: #343a40;
-    padding: 1%;
+    padding: .5%;
     border-radius: 0px;
 }
 
@@ -193,12 +193,14 @@ body {
 
 .range-slider {
     width: 100%;
-    column-fill: auto
+    column-fill: auto;
+    color: #249424;
 }
 
 #forward {
     float: right;
-    background-color: transparent
+    background-color: transparent;
+    outline-color: transparent
    
 }
 
@@ -217,10 +219,12 @@ body {
 }
 
 H3{
-    font-style: italic
+    font-style: bold
+    
     
 }
 
 #legend-control-container{
-    background-color: aqua
+    background-color: #249424;
+    color: #249424,
 }

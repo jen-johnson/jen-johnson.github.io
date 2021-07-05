@@ -114,9 +114,9 @@ a:hover {
 }
 
 .jumbotron2 {
-    background-color: black;
+    background-color: #343a40;
     text-align: center;
-    color: #000000;
+    color: #343a40;
     padding: 1%;
     border-radius: 0px;
 }

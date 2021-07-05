@@ -307,7 +307,7 @@ function updateLegend(map, attribute){
     //create content for legend
     var year = attribute.split("_")[1];
     var content = "CO2 Emissions per Capita " + year;
-
+   
     //replace legend content
     $('#temporal-legend').html(content);
 

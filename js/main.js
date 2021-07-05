@@ -39,10 +39,7 @@ var Esri_WorldGrayCanvas = L.tileLayer('https://server.arcgisonline.com/ArcGIS/r
 	maxZoom: 16
 }).addTo(map);
 
-var Esri_WorldShadedRelief = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}', {
-	attribution: 'Tiles &copy; Esri &mdash; Source: Esri',
-	maxZoom: 13
-}).addTo(map);
+
 
 var iconmarker = L.icon({
     iconUrl:'img/icon.png',
@@ -79,8 +76,7 @@ var cities = L.layerGroup([china, india, US, Indonesia, Pakistan, Brazil, Nigeri
     "Grayscale": grayscale,
     "Streets": streets,
     "Esri Gray Canvas": Esri_WorldGrayCanvas,
-    "Esri World Shaded Relief": Esri_WorldShadedRelief
-};
+    };
 L.control.layers(baseMaps, overlayMaps).addTo(map);
 
 L.control.scale().addTo(map);

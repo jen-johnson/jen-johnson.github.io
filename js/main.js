@@ -25,14 +25,6 @@ var streets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{
     accessToken: 'pk.eyJ1IjoiamVubmFtajEzIiwiYSI6ImNrbXAwcmFpeDBidG8ycHQ5cTV3eHltZGcifQ.XOONew0p_zpFabjGHU8aXQ'
 }).addTo(map);
 
-var grayscale =L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 18,
-    id: 'mapbox/streets-v11',
-    tileSize: 512,
-    zoomOffset: -1,
-    accessToken: 'pk.eyJ1IjoiamVubmFtajEzIiwiYSI6ImNrbXAwcmFpeDBidG8ycHQ5cTV3eHltZGcifQ.XOONew0p_zpFabjGHU8aXQ'
-}).addTo(map);
     
 var Esri_WorldGrayCanvas = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
 	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
@@ -73,13 +65,14 @@ var cities = L.layerGroup([china, india, US, Indonesia, Pakistan, Brazil, Nigeri
     "Percent Change (CO2)": cities,
 };
     var baseMaps = {
-    "Grayscale": grayscale,
     "Streets": streets,
     "Esri Gray Canvas": Esri_WorldGrayCanvas,
     };
 L.control.layers(baseMaps, overlayMaps).addTo(map);
 
 L.control.scale().addTo(map);
+
+
 
 getData(map);
 //    var emissions = getData(map);
@@ -336,22 +329,7 @@ function updateLegend(map, attribute){
     };
 };
 
-function createSearchControl(map, attribute){
-    var markersLayer = new L.LayerGroup();	//layer contain searched elements
-	
-	map.addLayer(markersLayer);
 
-	var controlSearch = new L.Control.Search({
-		position:'topright',		
-		layer: markersLayer,
-		initial: false,
-		zoom: 12,
-		marker: false
-	});
-
-	map.addControl( controlSearch );
-
-                              };
 
 //Step 1: Create new Leaflet control
 function createSequenceControls(map, attributes){

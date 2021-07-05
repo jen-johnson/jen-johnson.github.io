@@ -194,7 +194,7 @@ body {
 .range-slider {
     width: 100%;
     column-fill: auto;
-    color: #249424;
+    background-color: aquamarine;
 }
 
 #forward {
@@ -224,7 +224,8 @@ H3{
     
 }
 
-#legend-control-container{
+legend-control-container{
     background-color: #249424;
     color: #249424,
 }
+

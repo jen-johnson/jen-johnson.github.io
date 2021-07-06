@@ -227,8 +227,15 @@ H3{
     font-size: 20px
 }
 
-legend-control-container{
-    background-color: #249424;
-    color: #249424,
+#temporal-legend{
+    border: 2px green;
+    background-color: gainsboro;
+    
+}
+#attribute-legend{
+    background-color: gainsboro;
+    width: 200px;
+    height: 100px;
+    text-align: right
 }
 

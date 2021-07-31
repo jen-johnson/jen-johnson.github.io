@@ -51,7 +51,7 @@ function setMap(){
 
     //use Promise.all to parallelize asynchronous data loading
     var promises = [];
-    promises.push(d3.csv("data/GA_votersCopy.csv")); //load attributes from csv
+    promises.push(d3.csv("data/GA_voters.csv")); //load attributes from csv
     console.log("csv loaded")
     promises.push(d3.json("data/states.topojson")); //load background spatial data
     promises.push(d3.json("data/Counties_Georgia.topojson")); //load choropleth spatial data

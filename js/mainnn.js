@@ -3,7 +3,7 @@
 (function(){
 
 //pseudo-global variables
-var attrArray = ["varA", "varB", "varC", "varD", "varE"]; //list of attributes
+var attrArray = ["NativeAmerican", "Asian", "Black", "Hispanic", "White"]; //list of attributes
 var expressed = attrArray[0]; //initial attribute
 
 //chart frame dimensions
@@ -41,15 +41,15 @@ function setMap(){
 
     //create Albers equal area conic projection centered on France
     var projection = d3.geoAlbers()
-        .center([0, 46.2])
-        .rotate([-2, 0])
-        .parallels([43, 62])
-        .scale(2500)
+        .center([-83.60516962273933,33.45])
+        .rotate([0, 0])
+        .parallels([0, 180])
+        .scale(4300)
         .translate([width / 2, height / 2]);
 
     var path = d3.geoPath()
         .projection(projection);
-
+    
     //use Promise.all to parallelize asynchronous data loading
     var promises = [];
     promises.push(d3.csv("data/unitsData.csv")); //load attributes from csv
@@ -121,13 +121,13 @@ function joinData(franceRegions, csvData){
     //loop through csv to assign each set of csv attribute values to geojson region
     for (var i=0; i<csvData.length; i++){
         var csvRegion = csvData[i]; //the current region
-        var csvKey = csvRegion.adm1_code; //the CSV primary key
+        var csvKey = csvRegion.NAME10; //the CSV primary key
 
         //loop through geojson regions to find correct region
         for (var a=0; a<franceRegions.length; a++){
 
             var geojsonProps = franceRegions[a].properties; //the current region geojson properties
-            var geojsonKey = geojsonProps.adm1_code; //the geojson primary key
+            var geojsonKey = geojsonProps.NAME10; //the geojson primary key
 
             //where primary keys match, transfer csv data to geojson properties object
             if (geojsonKey == csvKey){
@@ -205,7 +205,7 @@ function setEnumerationUnits(franceRegions, map, path, colorScale){
         .enter()
         .append("path")
         .attr("class", function(d){
-            return "regions " + d.properties.adm1_code;
+            return "regions " + d.properties.NAME10;
         })
         .attr("d", path)
         .style("fill", function(d){
@@ -251,7 +251,7 @@ function setChart(csvData, colorScale){
             return b[expressed]-a[expressed]
         })
         .attr("class", function(d){
-            return "bar " + d.adm1_code;
+            return "bar " + d.NAME10;
         })
         .attr("width", chartInnerWidth / csvData.length - 1)
         .on("mouseover", highlight)
@@ -387,13 +387,13 @@ function updateChart(bars, n, colorScale){
     
     //add text to chart title
     var chartTitle = d3.select(".chartTitle")
-        .text("Number of Variable " + expressed[3] + " in each region");
+        .text("Number of Variable " + expressed + " in each region");
 };
 
 //function to highlight enumeration units and bars
 function highlight(props){
     //change stroke
-    var selected = d3.selectAll("." + props.adm1_code)
+    var selected = d3.selectAll("." + props.NAME10)
         .style("stroke", "blue")
         .style("stroke-width", "2");
     
@@ -402,7 +402,7 @@ function highlight(props){
 
 //function to reset the element style on mouseout
 function dehighlight(props){
-    var selected = d3.selectAll("." + props.adm1_code)
+    var selected = d3.selectAll("." + props.NAME10)
         .style("stroke", function(){
             return getStyle(this, "stroke")
         })
@@ -435,7 +435,7 @@ function setLabel(props){
     var infolabel = d3.select("body")
         .append("div")
         .attr("class", "infolabel")
-        .attr("id", props.adm1_code + "_label")
+        .attr("id", props.NAME10 + "_label")
         .html(labelAttribute);
 
     var regionName = infolabel.append("div")

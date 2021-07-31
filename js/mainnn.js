@@ -121,7 +121,7 @@ function joinData(franceRegions, csvData){
     //loop through csv to assign each set of csv attribute values to geojson region
     for (var i=0; i<csvData.length; i++){
         var csvRegion = csvData[i]; //the current region
-        var csvKey = csvRegion.NAME10; //the CSV primary key
+        var csvKey = csvRegion.name; //the CSV primary key
 
         //loop through geojson regions to find correct region
         for (var a=0; a<franceRegions.length; a++){

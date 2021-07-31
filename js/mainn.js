@@ -1,9 +1,8 @@
-
 //First line of main.js...wrap everything in a self-executing anonymous function to move to local scope
 (function(){
 
 //pseudo-global variables
-var attrArray = ["varA", "varB", "varC", "varD", "varE"]; //list of attributes
+var attrArray = ["Asian", "Black(Non-Hispanic)", "Hispanic", "White", "Native American"]; //list of attributes
 var expressed = attrArray[0]; //initial attribute
 
 //chart frame dimensions
@@ -41,10 +40,10 @@ function setMap(){
 
     //create Albers equal area conic projection centered on France
     var projection = d3.geoAlbers()
-        .center([0, 46.2])
-        .rotate([-2, 0])
-        .parallels([43, 62])
-        .scale(2500)
+        .center([-83.60516962273933,33.45])
+        .rotate([0, 0])
+        .parallels([0, 180])
+        .scale(4300)
         .translate([width / 2, height / 2]);
 
     var path = d3.geoPath()
@@ -52,44 +51,48 @@ function setMap(){
 
     //use Promise.all to parallelize asynchronous data loading
     var promises = [];
-    promises.push(d3.csv("data/unitsData.csv")); //load attributes from csv
-    promises.push(d3.json("data/EuropeCountries.topojson")); //load background spatial data
-    promises.push(d3.json("data/FranceRegions.topojson")); //load choropleth spatial data
+    promises.push(d3.csv("data/GA_votersCopy.csv")); //load attributes from csv
+    console.log("csv loaded")
+    promises.push(d3.json("data/states.topojson")); //load background spatial data
+    promises.push(d3.json("data/Counties_Georgia.topojson")); //load choropleth spatial data
     Promise.all(promises).then(callback);
 
     function callback(data){
 
-        [csvData, europe, france] = data;
-
-
-
+        [csvData, usa, georgia] = data;
+        console.log("heres data", data)
+        console.log("here's georgia",georgia)
         //place graticule on the map
         setGraticule(map, path);
 
         //translate europe TopoJSON
-        var europeCountries = topojson.feature(europe, europe.objects.EuropeCountries),
-            franceRegions = topojson.feature(france, france.objects.FranceRegions).features;
+     var states = topojson.feature(usa, usa.objects.states);
+      console.log("Here is states",states)
+        var Counties_Georgia = topojson.feature(georgia, georgia.objects.Counties_Georgia).features;
+        console.log(Counties_Georgia)
 
-        //add Europe countries to map
+        //add states to the map
         var countries = map.append("path")
-            .datum(europeCountries)
-            .attr("class", "countries")
+            .datum(states)
+            .attr("class", "states")
             .attr("d", path);
+        
+       
 
         //join csv data to GeoJSON enumeration units
-        franceRegions = joinData(franceRegions, csvData);
-
+      Counties_Georgia = joinData(Counties_Georgia, csvData);
+        console.log("Did it work?", Counties_Georgia)
         //create the color scale
-        var colorScale = makeColorScale(csvData);
+       var colorScale = makeColorScale(csvData);
 
         //add enumeration units to the map
-        setEnumerationUnits(franceRegions, map, path, colorScale);
+       setEnumerationUnits(Counties_Georgia, map, path, colorScale);
 
         //add coordinated visualization to the map
-        setChart(csvData, colorScale);
+      setChart(csvData, colorScale);
 
         // dropdown
-        createDropdown(csvData);
+     createDropdown(csvData);
 
     };
 }; //end of setMap()
@@ -116,18 +119,18 @@ function setGraticule(map, path){
         .attr("d", path); //project graticule lines
 };
 
-function joinData(franceRegions, csvData){
+function joinData(Counties_Georgia, csvData){
     //...DATA JOIN LOOPS FROM EXAMPLE 1.1
     //loop through csv to assign each set of csv attribute values to geojson region
     for (var i=0; i<csvData.length; i++){
         var csvRegion = csvData[i]; //the current region
-        var csvKey = csvRegion.adm1_code; //the CSV primary key
+        var csvKey = csvRegion.name; //the CSV primary key
 
         //loop through geojson regions to find correct region
-        for (var a=0; a<franceRegions.length; a++){
+        for (var a=0; a<Counties_Georgia.length; a++){
 
-            var geojsonProps = franceRegions[a].properties; //the current region geojson properties
-            var geojsonKey = geojsonProps.adm1_code; //the geojson primary key
+            var geojsonProps = Counties_Georgia[a].properties; //the current region geojson properties
+            var geojsonKey = geojsonProps.NAME10; //the geojson primary key
 
             //where primary keys match, transfer csv data to geojson properties object
             if (geojsonKey == csvKey){
@@ -142,17 +145,17 @@ function joinData(franceRegions, csvData){
     };
 
 
-    return franceRegions;
+    return Counties_Georgia;
 };
 
 //Example 1.6 Natural Breaks color scale
 function makeColorScale(data){
     var colorClasses = [
-        "#D4B9DA",
-        "#C994C7",
-        "#DF65B0",
-        "#DD1C77",
-        "#980043"
+        "#FFa07A",
+        "#FF4500",
+        "#FF6347",
+        "#FF8C00",
+        "#FFA500"
     ];
 
     //create color scale generator
@@ -197,15 +200,15 @@ function choropleth(props, colorScale){
 };
 
 
-function setEnumerationUnits(franceRegions, map, path, colorScale){
+function setEnumerationUnits(Counties_Georgia, map, path, colorScale){
     //...REGIONS BLOCK FROM MODULE 8
     //add France regions to map
     var regions = map.selectAll(".regions")
-        .data(franceRegions)
+        .data(Counties_Georgia)
         .enter()
         .append("path")
         .attr("class", function(d){
-            return "regions " + d.properties.adm1_code;
+            return "regions " + d.properties.NAME10;
         })
         .attr("d", path)
         .style("fill", function(d){
@@ -251,7 +254,7 @@ function setChart(csvData, colorScale){
             return b[expressed]-a[expressed]
         })
         .attr("class", function(d){
-            return "bar " + d.adm1_code;
+            return "bar " + d.NAME10;
         })
         .attr("width", chartInnerWidth / csvData.length - 1)
         .on("mouseover", highlight)
@@ -267,7 +270,7 @@ function setChart(csvData, colorScale){
         .attr("x", 40)
         .attr("y", 40)
         .attr("class", "chartTitle")
-        .text("Number of Variable " + expressed[3] + " in each region");
+        .text("Number of Variable " + expressed + " in each region");
 
     //create vertical axis generator
     var yAxis = d3.axisLeft()
@@ -326,7 +329,7 @@ function changeAttribute(attribute, csvData){
     
     yScale = d3.scaleLinear()
         .range([chartHeight - 10, 0])
-        .domain([0, csvmax*1.1]);
+        .domain([0, 3004000*1.1]);
 
     //updata vertical axis 
     d3.select(".axis").remove();
@@ -387,22 +390,22 @@ function updateChart(bars, n, colorScale){
     
     //add text to chart title
     var chartTitle = d3.select(".chartTitle")
-        .text("Number of Variable " + expressed[3] + " in each region");
+        .text("Number of Variable " + expressed + " in each county");
 };
 
 //function to highlight enumeration units and bars
 function highlight(props){
     //change stroke
-    var selected = d3.selectAll("." + props.adm1_code)
+    var selected = d3.selectAll("." + props.NAME10)
         .style("stroke", "blue")
-        .style("stroke-width", "2");
+        .style("stroke-width", "1");
     
     setLabel(props);
 };
 
 //function to reset the element style on mouseout
 function dehighlight(props){
-    var selected = d3.selectAll("." + props.adm1_code)
+    var selected = d3.selectAll("." + props.NAME10)
         .style("stroke", function(){
             return getStyle(this, "stroke")
         })
@@ -429,13 +432,13 @@ function dehighlight(props){
 function setLabel(props){
     //label content
     var labelAttribute = "<h1>" + props[expressed] +
-        "</h1><b>" + expressed + "</b>";
+        "</h1><b> Number of " + expressed + " Voters test</b>";
 
     //create info label div
     var infolabel = d3.select("body")
         .append("div")
         .attr("class", "infolabel")
-        .attr("id", props.adm1_code + "_label")
+        .attr("id", props.NAME10 + "_label")
         .html(labelAttribute);
 
     var regionName = infolabel.append("div")

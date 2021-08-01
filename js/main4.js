@@ -391,7 +391,7 @@ function updateChart(bars, n, colorScale){
             return choropleth(d, colorScale);
         });
     
-    //add text to chart title
+    //chart title text
     var chartTitle = d3.select(".chartTitle")
         .text("Population of " + expressed + " Voters (by County)");
 };
@@ -400,7 +400,7 @@ function updateChart(bars, n, colorScale){
 function highlight(props){
     //change stroke
     var selected = d3.selectAll("." + props.NAME10)
-        .style("stroke", "blue")
+        .style("stroke", "yellow")
         .style("stroke-width", "2");
     
     setLabel(props);

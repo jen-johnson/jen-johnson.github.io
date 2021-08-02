@@ -104,7 +104,7 @@ option {
 
 .infolabel {
 	position: absolute;
-	height: 20px;
+	height: 50px;
 	min-width: 100px;
 	color: #016064;
 	background-color: #FFF;

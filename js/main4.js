@@ -401,7 +401,7 @@ function highlight(props){
     //change stroke
     var selected = d3.selectAll("." + props.NAME10)
         .style("stroke", "yellow")
-        .style("stroke-width", "2");
+        .style("stroke-width", "3");
     
     setLabel(props);
 };

@@ -1,0 +1,33 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>D3 Coordinated Visualization</title>
+
+		<!--external stylesheet-->
+		<link rel="stylesheet" href="css/styleee.css">
+	</head>
+<div class="jumbotron2">
+      <div class="image" style= max-width:150% style= left:50px><a href="img/title.png">
+                    <img src="img/title.png" alt="header" class="center-block img-responsive" max-width="100%" areheight="auto" />
+                </a></div>
+            <H2> The 2020 General Election was historic...HOWEVER, one of the biggest headlines that week came out of Georgia. Georgia has been considered a "red" state since 1996...The 2020 General Election changed that. Could voter edmogrphics have played a role?</H2>
+        <p>
+        
+        </p>
+        <h4> The graphics below depict active voter demographics by race per county. (Including: Native American, Asian, Black-Non-Hispanic, Hispanic, White-Non-Hispanic, and Unkown)</h4>
+    </div>
+       
+	<body>
+
+		<!--libraries-->
+		<script type="text/javascript" src="lib/d3.js"></script>
+		<script type="text/javascript" src="lib/d3-selection-multi.min.js"></script>
+        <script src="https://unpkg.com/topojson@3"></script>
+		<script type="text/javascript" src="lib/simple-statistics.min.js"></script>
+
+		<!--main script-->
+		<script type="text/javascript" src="js/main4.js"></script>
+
+	</body>
+</html>

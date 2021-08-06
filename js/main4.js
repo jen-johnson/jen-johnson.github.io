@@ -2,7 +2,7 @@
 //First line of main.js...wrap everything in a self-executing anonymous function to move to local scope
 (function(){
 
-//pseudo-global variables
+//this will name the variable
 var attrArray = ["NativeAmerican", "Asian", "Black", "Hispanic", "White", "Unknown"]; //list of attributes
 var expressed = attrArray[0]; //initial attribute
 
@@ -22,7 +22,7 @@ var yScale = d3.scaleLinear()
     .domain([0, 1550*1.1]); // csv first column max = 88
 
 
-//begin script when window loads
+
 window.onload = setMap();
 
 //set up choropleth map
@@ -32,7 +32,7 @@ function setMap(){
     var width = window.innerWidth * 0.5,
         height = 460;
 
-    //create new svg container for the map
+    //sets up container for Georgia map
     var map = d3.select("body")
         .append("svg")
         .attr("class", "map")
@@ -41,29 +41,29 @@ function setMap(){
 
     //create Albers equal area conic projection centered on France
     var projection = d3.geoAlbers()
-        .center([-83.43,33.12])
+        .center([-83.43,33])
         .rotate([0, 0])
         .parallels([0, 180])
-        .scale(4900)
+        .scale(5700)
         .translate([width / 2, height / 2]);
 
     var path = d3.geoPath()
         .projection(projection);
 
-    //use Promise.all to parallelize asynchronous data loading
+    //use Promise.all to load data , csv, then topojsons
     var promises = [];
-    promises.push(d3.csv("data/GA_voters.csv")); //load attributes from csv
+    promises.push(d3.csv("data/GA_voters.csv")); 
     console.log("csv loaded")
-    promises.push(d3.json("data/states.topojson")); //load background spatial data
-    promises.push(d3.json("data/Counties_Georgia.topojson")); //load choropleth spatial data
+    promises.push(d3.json("data/states.topojson")); 
+    promises.push(d3.json("data/Counties_Georgia.topojson")); //after promise.all it will run callback
     Promise.all(promises).then(callback);
-
+//defines callback function
     function callback(data){
-
+//defining data
         [csvData, usa, georgia] = data;
-        console.log("heres data", data)
-        console.log("here's georgia",georgia)
-        //place graticule on the map
+        console.log("heres data", data) //checks that it loaded right
+        console.log("here's georgia",georgia) //check that georgia is there
+        //adds graticules - this function will be defined below
         setGraticule(map, path);
 
         //translate europe TopoJSON

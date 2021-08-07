@@ -7,7 +7,7 @@ var attrArray = ["NativeAmerican", "Asian", "Black", "Hispanic", "White", "Unkno
 var expressed = attrArray[0]; //initial attribute
 
 //chart frame dimensions
-var chartWidth = window.innerWidth * 0.425,
+var chartWidth = window.innerWidth * 0.5,
     chartHeight = 473,
     leftPadding = 25,
     rightPadding = 2,
@@ -29,7 +29,7 @@ window.onload = setMap();
 function setMap(){
     
     //map frame dimensions
-    var width = window.innerWidth * 0.5,
+    var width = window.innerWidth * 0.4,
         height = 460;
 
     //sets up container for Georgia map

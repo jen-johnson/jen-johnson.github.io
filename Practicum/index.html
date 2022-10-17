@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="description" content="ArcGIS JS v4, Calcite Maps and Bootstrap Example">
+ 
+  <title>Next Generation of Environmentalists - Maryland</title>
+
+  <!-- Calcite Maps Bootstrap -->
+  <link rel="stylesheet" href="https://esri.github.io/calcite-maps/dist/css/calcite-maps-bootstrap.min-v0.10.css">
+  
+  <!-- Calcite Maps -->
+  <link rel="stylesheet" href="https://esri.github.io/calcite-maps/dist/css/calcite-maps-arcgis-4.x.min-v0.10.css">
+
+  <!-- ArcGIS JS 4 -->
+  <link rel="stylesheet" href="https://js.arcgis.com/4.24/esri/themes/dark/main.css">
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    h1{
+      color: #7FFF00;;
+      font-size:18pt;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+    }
+    h2{
+      color: #316b98;;
+      font-size: 13pt;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+    }
+    h3{
+      color: #3d55ac;
+      font-size: 13pt;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+    }
+    p{
+      color: #7FFF00;
+      font-family:  "Comic Sans MS", cursive, sans-serif;
+      font-size: small;
+
+    }
+
+    .navbar calcite-navbar navbar-fixed-top calcite-text-dark calcite-bgcolor-dark-green{
+      min-height:200px;
+    }
+
+  </style>
+
+</head>
+
+<body class="calcite-maps calcite-nav-top">
+  <!-- Navbar -->
+
+  <nav class="navbar calcite-navbar navbar-fixed-top calcite-text-dark calcite-bgcolor-dark-blue" style="height: 100px;">
+    <!-- Menu -->
+    <div class="dropdown calcite-dropdown calcite-text-dark calcite-bgcolor-dark-blue" role="presentation" style="height: 100px; width: 75px;">
+      <a class="dropdown-toggle" role="menubutton" aria-haspopup="true" aria-expanded="false" tabindex="0" style="height: 100px; width: 75px;">
+        <div class="calcite-dropdown-toggle">
+          <span class="sr-only">Toggle dropdown menu</span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </a>
+      <ul class="dropdown-menu calcite-bgcolor-dark-blue" role="menu">
+        <li><a role="menuitem" tabindex="0" data-target="#panelInfo" aria-haspopup="true"><span class="glyphicon glyphicon-info-sign"></span> <p>Reptiles and Amphibians</p></a></li>
+        <li><a role="menuitem" tabindex="0" data-target="#panelMammel" aria-haspopup="true"><span class="glyphicon glyphicon-info-sign"></span> <p>Mammals (not ready)</p></a></li>
+        <!-- <li><a role="menuitem" tabindex="0" data-target="#panelInst" aria-haspopup="true"><span class="glyphicon glyphicon-book"></span> <p>Instructions</p></a></li> -->
+        <li><a role="menuitem" tabindex="0" href="#" data-target="#panelLegend" aria-haspopup="true"><span class="glyphicon glyphicon-list" ></span> <p>Legend</p></a></li>
+        <li><a role="menuitem" tabindex="0" href="#" id="calciteToggleNavbar" aria-haspopup="true"><span class="glyphicon glyphicon-fullscreen"></span> <p>Full Map</p></a></li>
+        <li><a role="menuitem" tabindex="0" href="#" data-target="#panelSour" aria-haspopup="true"><span class="glyphicon glyphicon-list-alt"></span> <p>Sources</p></a></li>
+      </ul>
+    </div>
+    <!-- Title -->
+    <div class="calcite-title calcite-overflow-hidden">
+      <span class="calcite-title-main"><h1><b>Maryland Wildlife Explorer</b></h1> </span>
+      <span class="calcite-title-divider hidden-xs"></span>
+      <span class="calcite-title-sub hidden-m" style="color: #7FFF00;"><a href="https://kids.nationalgeographic.com/animals/reptiles/ " target="_blank"><p>Help Menu</p></a></span>
+      <span class="calcite-title-divider hidden-xs"></span>
+      <span class="calcite-title-sub hidden-xs" style="color: #7FFF00;">BETA WEBSITE FOR USER TESTING ONLY</span>
+    </div>
+    <!-- Nav -->
+     <ul class="nav navbar-nav calcite-nav">
+      <li>
+        <div class="calcite-navbar-search calcite-search-expander">
+          <div id="searchWidgetDiv"></div>
+        </div>
+      </li>
+      <li>
+        <div class="calcite-navbar-layerlist calcite-layerlist-expander">
+          <div id="layerlisthWidgetDiv"></div>
+        </div>
+      </li>
+    </ul> 
+    
+
+  </nav>
+
+  <!--/.calcite-navbar -->
+
+  <!-- Map  -->
+
+  <div class="calcite-map ">
+    <div id="mapViewDiv"></div>
+  </div>
+
+  <!-- /.calcite-map -->
+
+  <!-- Panels -->
+
+  <div class="calcite-panels calcite-panels-right calcite-text-dark calcite-bgcolor-dark-green panel-group " style="background-color: #c2c3b3; margin-top: 35px; padding-left: 0px;">
+
+    <!-- Panel - Basemaps -->
+
+    <div id="panelInfo" class="panel collapse in">
+      
+      <div id="headingInfo" class="panel-heading" role="tab"style=" background-color:  #7FFF00; position: center;">
+        <div class="panel-title"style="height:50px; width: 400px; ">
+          
+          <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseInfo"  aria-expanded="true" aria-controls="collapseInfo" ><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span><span class="panel-label"><h3>Reptiles and Amphibians (Herps)
+          </h3></span> </a> 
+          <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelInfo"><span class="esri-icon esri-icon-close" aria-hidden="true" ></span></a>  
+        </div>
+      </div>
+      <div class="panel-title"style="height: 79px;px; width: 400px; background-color: #316b98; ">
+      
+        <p> <h2>//n is     hidden text</h2>  <a href="https://dnr.maryland.gov/wildlife/Documents/CommonBackyardHerps.pdf" target="_blank">
+          <img src="img/frog2.PNG" >
+          </a> <- Click here for field guide!</p>  
+      </div>
+
+      <div id="collapseInfo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingInfo" >
+        <div class="panel-body" style="height: 500px; width: 400px; background-color: #316b98;">
+          <p></p><b><p>
+            Interested in learning more about Maryland's reptiles and amphibians?</b> </p><p>
+            First lets go over the definitions of what reptiles and amphibians are... </p><p>
+            According to National Geographic, Reptiles are cold-blooded vertebrates. (Vertebrates have backbones.) They have dry skin covered with scales or bony plates and usually lay soft-shelled eggs.Amphibians are cold-blooded vertebrates (vertebrates have backbones) that don’t have scales. They live part of their lives in water and part on land.</p><p>
+               Reptiles and amphibians are collectively called herps (from herpetology , the study of amphibians and reptiles). Think you've seen 
+            one? Click the image above to see the common Herps in Maryland</p>
+
+</p>
+            
+        <p><b></b></p><a href="https://kids.nationalgeographic.com/animals/reptiles/ " target="_blank">Click Here for more Nat Geo Information</a>
+        </div>
+     </div>
+    </div>
+
+    <!-- <div id="panelOpen" class="panel collapse in">
+      
+      <div id="headingOpen" class="panel-heading" role="tab"style=" background-color:  #7FFF00; position: right;">
+        <div class="panel-title"style="height:500px; width: 800px; ">
+          
+          <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseOpen"  aria-expanded="true" aria-controls="collapseInfo" ><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span><span class="panel-label"><h3>Reptiles and Amphibians (Herps)
+          </h3></span> </a> 
+          <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelOpen"><span class="esri-icon esri-icon-close" aria-hidden="true" ></span></a>  
+        </div>
+      </div>
+      <div class="panel-title"style="height: 500px;px; width: 800px; background-color: #316b98; ">
+      
+        <p> <h2>//n is     hidden text</h2>  <a href="https://dnr.maryland.gov/wildlife/Documents/CommonBackyardHerps.pdf" target="_blank">
+          <img src="img/frog2.PNG" >
+          </a> <- Click here for field guide!</p>  
+      </div>
+
+      <div id="collapseOpen" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingInfo" >
+        <div class="panel-body" style="height: 200px; width: 800px; background-color: #316b98;">
+
+
+</p>
+            
+        <p><b></b></p><a href="https://kids.nationalgeographic.com/animals/reptiles/ " target="_blank">Click Here for more Nat Geo Information</a>
+        </div>
+     </div>
+    </div> -->
+
+    <!-- <div id="panelInst" class="panel collapse in">
+      <div id="headingInfo" class="panel-heading" role="tab">
+        <div class="panel-title">
+          <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseInst"  aria-expanded="true" aria-controls="collapseInst"><span class="glyphicon glyphicon-book" aria-hidden="true"></span><span class="panel-label"><h2>Instructions
+          </h2></span></a> 
+          <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelInst"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>  
+        </div>
+      </div>
+      <div id="collapseInst" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingInfo">
+        <div class="panel-body">
+        <img src="img\buttons3.png">
+        </div>
+     </div>
+    </div> -->
+
+    <!-- Panel - Legend -->
+
+    <div id="panelLegend" class="panel collapse">
+      <div id="headingLegend" class="panel-heading" role="tab">
+        <div class="panel-title">
+          <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseLegend" aria-expanded="false" aria-controls="collapseLegend"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span><span class="panel-label">Legend</span></a> 
+          <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelLegend"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a> 
+        </div>
+      </div>
+      <div id="collapseLegend" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingLegend">
+        <div class="panel-body">            
+          <div id="legendDiv"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div id="panelSour" class="panel collapse in">
+      <div id="headingSour" class="panel-heading" role="tab">
+        <div class="panel-title">
+          <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseSour"  aria-expanded="false" aria-controls="collapseSour"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span><span class="panel-label"><h2>About
+          </h2></span></a> 
+          <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelSour"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>  
+        </div>
+      </div>
+      <div id="collapseSour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSour">
+        <div class="panel-body">
+          <p><b>
+            Welcome to Virgin Islands National Park!</b>
+Virgin Islands National Park is comprised of 7,259 acres of terrestrial habitat, which is about 60%, of the island's land mass. The park also includes 5,650 acres of adjacent submerged lands. The park owns the ridge tops to the reefs providing protection and preservation for tropical and migrating birds, fish, corals and other marine life, as well as some 800 species of plants.
+
+This park is open every day! Check our Operating Hours and Seasons page for the up-to-date visitor center hours and offerings.
+</p>
+            
+        <p><b></b></p><a href="https://www.nps.gov/viis/planyourvisit/basicinfo.htm">For more about the Park</a>
+        </div>
+     </div>
+    </div> -->
+
+  </div>
+
+  <!-- /.calcite-panels -->
+
+  <script type="text/javascript">
+    var dojoConfig = {
+      packages: [{
+        name: "bootstrap",
+        location: "https://esri.github.io/calcite-maps/dist/vendor/dojo-bootstrap"
+      },
+      {
+        name: "calcite-maps",
+        location: "https://esri.github.io/calcite-maps/dist/js/dojo"
+      }]
+    };
+  </script>
+
+  <!-- ArcGIS JS 4 -->
+  <script src="https://js.arcgis.com/4.23/"></script>
+
+  <script>
+    
+    require([
+      "esri/WebMap",
+      "esri/views/MapView",
+      "esri/config",
+      // Funtions
+      "esri/widgets/Home",
+      "esri/widgets/Zoom",
+      "esri/widgets/Compass",
+      "esri/widgets/Search",
+      "esri/widgets/Legend",
+      "esri/widgets/BasemapToggle",
+      "esri/widgets/ScaleBar",
+      "esri/widgets/Attribution",
+      "esri/layers/VectorTileLayer",
+      "esri/layers/TileLayer",
+      "esri/layers/FeatureLayer",
+      "esri/renderers/SimpleRenderer",
+      "esri/widgets/LayerList",
+      "esri/symbols/WebStyleSymbol",
+      "esri/widgets/Expand",
+      "esri/widgets/Editor",
+      // UI Design 
+      "bootstrap/Collapse",
+      "bootstrap/Dropdown",
+      "calcite-maps/calcitemaps-v0.10",
+      "calcite-maps/calcitemaps-arcgis-support-v0.10",
+      "dojo/domReady!"
+    ], function(WebMap, MapView, esriConfig, Home, Zoom, Compass, Search, Legend, BasemapToggle, ScaleBar, Attribution, vectorTileLayer, TileLayer, FeatureLayer, SimpleRenderer,  LayerList, WebStyleSymbol,Expand, Editor, Collapse, Dropdown, CalciteMaps, CalciteMapArcGISSupport) {
+
+      /******************************************************************
+       *
+       * Create the map, view and widgets
+       * 
+       ******************************************************************/
+
+      // Map
+      var map = new WebMap({
+        portalItem: {
+          id: "7216aaff248d464ab2b486638297cb4d"
+        }
+      });
+      
+      // View
+      var view = new MapView({
+        container: "mapViewDiv",
+        map: map,
+        padding: {
+          top: 150,
+          bottom: 0
+        },
+        ui: {components: []}
+      });
+
+      // Popup and panel sync
+      view.when(function(){
+        CalciteMapArcGISSupport.setPopupPanelSync(view);
+      });
+
+      // Search - add to navbar
+      var searchWidget = new Search({
+        container: "searchWidgetDiv",
+        view: view
+      });
+      CalciteMapArcGISSupport.setSearchExpandEvents(searchWidget);
+
+      // Map widgets
+      
+
+      // Panel widgets - add legend
+      var legendWidget = new Legend({
+        container: "legendDiv",
+        view: view
+      });
+
+
+      view.ui.move("zoom", "top-left");
+
+
+//ADDING LAYERSS
+
+// let redSym = {
+//   type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+//   // color: "green",
+//   outline: {  // autocasts as new SimpleLineSymbol()
+//     color: "green",
+//     width: "2px"
+//   }
+// }; 
+// const redRenderer={
+//   type:"simple",
+//   symbol:redSym
+// }
+
+    
+      
+//       const ecoLayer = new FeatureLayer({
+//         url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/region_data/FeatureServer",
+        
+//         renderer: redRenderer,
+//         popupTemplate: {
+//           title: "{name}",
+//           lastEditInfoEnabled: false,
+         
+         
+//           content: [
+//           {
+//               type: "text", // TextContentElement
+//               text: "<b>Ecoregion Name: </b>{NA_L3NAME}"
+//             },
+            
+            
+//             {
+//               type: "attachments" // AttachmentsContentElement
+//             }
+//             // {
+//             //   type:"media",
+//             //   mediaInfos:[
+//             //    {title:"<b> Picture</b>",
+//             //   type:"image",
+//             //   // sourceURL:
+//             //   //         "https://www.sunset.com/wp-content/uploads/96006df453533f4c982212b8cc7882f5-800x0-c-default.jpg"} 
+//             //  } ]
+
+
+//             // }
+//           ]
+//         }
+//       });
+
+//       map.add(ecoLayer);
+//INSERT UNIQUE VALUE POI STUFF HERE
+const reportLayer = new FeatureLayer({
+        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/ObserverLayer/FeatureServer/2"
+      });
+  
+
+
+//       const sqlExpressions = ["Filter Points of Interest", "Filter = 'Clear Filter'", "Category = 'Ferry'", "Category = 'Food'", "Category = 'Lodging'", "Category= 'Scenic'"];
+
+// // UI
+// const selectFilter = document.createElement("select");
+// selectFilter.setAttribute("class", "esri-widget esri-select");
+// selectFilter.setAttribute("style", "width: 275px; font-family: Avenir Next W00; font-size: 1em;");
+
+// sqlExpressions.forEach(function(sql){
+//   let option = document.createElement("option");
+//   option.value = sql;
+//   option.innerHTML = sql;
+//   selectFilter.appendChild(option);
+// });
+
+// view.ui.add(selectFilter, "top-right");
+// // const filExpand = new Expand({
+// // view: view,
+// // content: selectFilter
+
+// // });
+// // view.ui.add(filExpand, "top-left");
+
+// // Add a feature layer to map with all features visible on client (no filter)
+// const poiLayer = new FeatureLayer({
+//   url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/USVI_Points_of_Interest_/FeatureServer",
+//   outFields: ["*"],
+//   renderer: testRenderer,
+//   popupTemplate: {
+//     title: "{name}",
+//     content: "Description: {Descriptio}. "
+//   },
+//   definitionExpression: "1=0"
+// });
+// map.add(poiLayer);
+// map.add(poiLayer);
+
+
+// // Server-side filter
+// function setFeatureLayerFilter(expression) {
+//   poiLayer.definitionExpression = expression;
+// }
+
+
+// // Event listener
+// selectFilter.addEventListener('change', function (event) {
+//   setFeatureLayerFilter(event.target.value);
+// });
+
+// const basemaps = new BasemapGallery({
+//  view,
+//   container: "basemaps-container"
+//  });
+//  view.ui.add(layExpand, "bottom-left")
+
+      // const bookmarks = new Bookmarks({
+      //   view,
+      //   container: "bookmarks-container"
+      // });
+
+      const layerList = new LayerList({
+        view,
+        selectionEnabled: true,
+      });
+
+      const layExpand = new Expand({
+view: view,
+content: layerList,
+
+});
+view.ui.add(layExpand, "top-left")
+
+      const legend = new Legend({
+        view,
+        container: "legend-container"
+      });
+
+      // const print = new Print({
+      //   view,
+      //   container: "print-container"
+      // });
+      var home = new Home({
+        view: view
+      });
+      view.ui.add(home, "top-leftt");
+
+      
+      const seaWidget = new Search({
+        view: view
+      });
+
+      // Add the search widget to the top right corner of the view
+      // view.ui.add(seaWidget, {
+      //   position: "bottom-left"
+      // });
+    
+const seaExpand = new Expand({
+view: view,
+content: seaWidget
+});
+view.ui.add(seaExpand, "top-left");
+
+const editor = new Editor({
+        view,
+        snappingOptions: { // autocasts to SnappingOptions()
+    enabled: false
+  },
+        // container: "editor-container"
+      });
+
+    // Add widget to the view
+    // view.ui.add(editor, "top-right");
+
+    const bgExpand = new Expand({
+view: view,
+content: editor
+});
+view.ui.add(bgExpand, "top-left");
+
+      var zoom = new Zoom({
+        view: view
+      });
+     view.ui.add(zoom, "top-left");
+
+      var compass = new Compass({
+        view: view
+      });
+      view.ui.add(compass, "top-left");
+      
+      var basemapToggle = new BasemapToggle({
+        view: view,
+        secondBasemap: "satellite"
+      });
+      view.ui.add(basemapToggle, "bottom-left");          
+      
+      var scaleBar = new ScaleBar({
+        view: view
+      });
+      view.ui.add(scaleBar, "bottom-left");
+
+      var attribution = new Attribution({
+        view: view
+      });
+      view.ui.add(attribution, "manual");
+
+
+      const search = new Search({
+        view,
+        container: "search-container"
+      });
+
+
+      
+
+    });
+  </script>
+
+</body>
+</html>

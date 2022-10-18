@@ -26,7 +26,7 @@
     }
 
     h1{
-      color: #7FFF00;;
+      color: #dedb82;;
       font-size:18pt;
       font-family: "Comic Sans MS", cursive, sans-serif;
     }
@@ -40,8 +40,15 @@
       font-size: 13pt;
       font-family: "Comic Sans MS", cursive, sans-serif;
     }
+
+    h4{
+      color: #cddbd8;
+      font-family:  "Comic Sans MS", cursive, sans-serif;
+      font-size: medium;
+
+    }
     p{
-      color: #7FFF00;
+      color: #cddbd8;
       font-family:  "Comic Sans MS", cursive, sans-serif;
       font-size: small;
 
@@ -58,9 +65,9 @@
 <body class="calcite-maps calcite-nav-top">
   <!-- Navbar -->
 
-  <nav class="navbar calcite-navbar navbar-fixed-top calcite-text-dark calcite-bgcolor-dark-blue" style="height: 100px;">
+  <nav class="navbar calcite-navbar navbar-fixed-top calcite-text-light calcite-bgcolor-dark-blue" style="height: 100px;">
     <!-- Menu -->
-    <div class="dropdown calcite-dropdown calcite-text-dark calcite-bgcolor-dark-blue" role="presentation" style="height: 100px; width: 75px;">
+    <div class="dropdown calcite-dropdown calcite-text-light calcite-bgcolor-dark-blue" role="presentation" style="height: 100px; width: 75px;">
       <a class="dropdown-toggle" role="menubutton" aria-haspopup="true" aria-expanded="false" tabindex="0" style="height: 100px; width: 75px;">
         <div class="calcite-dropdown-toggle">
           <span class="sr-only">Toggle dropdown menu</span>
@@ -82,10 +89,10 @@
     <!-- Title -->
     <div class="calcite-title calcite-overflow-hidden">
       <span class="calcite-title-main"><h1><b>Maryland Wildlife Explorer</b></h1> </span>
+      <span class="calcite-title-divider hidden-xs"></span>t
+      <span class="calcite-title-sub hidden-m" style="color: #dedb82;"><a href="https://jen-johnson.github.io/img/Navigation_guide.PNG" target="_blank"><p>Help Menu</p></a></span>
       <span class="calcite-title-divider hidden-xs"></span>
-      <span class="calcite-title-sub hidden-m" style="color: #7FFF00;"><a href="https://kids.nationalgeographic.com/animals/reptiles/ " target="_blank"><p>Help Menu</p></a></span>
-      <span class="calcite-title-divider hidden-xs"></span>
-      <span class="calcite-title-sub hidden-xs" style="color: #7FFF00;">BETA WEBSITE FOR USER TESTING ONLY</span>
+      <span class="calcite-title-sub hidden-xs" style="color: #dedb82;">BETA WEBSITE FOR USER TESTING ONLY</span>
     </div>
     <!-- Nav -->
      <ul class="nav navbar-nav calcite-nav">
@@ -116,16 +123,16 @@
 
   <!-- Panels -->
 
-  <div class="calcite-panels calcite-panels-right calcite-text-dark calcite-bgcolor-dark-green panel-group " style="background-color: #c2c3b3; margin-top: 35px; padding-left: 0px;">
+  <div class="calcite-panels calcite-panels-right calcite-text-light calcite-bgcolor-dark-blue panel-group " style="background-color: #316b98; margin-top: 50px; height: 620px;">
 
     <!-- Panel - Basemaps -->
 
     <div id="panelInfo" class="panel collapse in">
       
-      <div id="headingInfo" class="panel-heading" role="tab"style=" background-color:  #7FFF00; position: center;">
+      <div id="headingInfo" class="panel-heading" role="tab"style=" background-color:  #dedb82; position: center;">
         <div class="panel-title"style="height:50px; width: 400px; ">
           
-          <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseInfo"  aria-expanded="true" aria-controls="collapseInfo" ><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span><span class="panel-label"><h3>Reptiles and Amphibians (Herps)
+          <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseInfo"  aria-expanded="true" aria-controls="collapseInfo" ><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span><span class="panel-label"><h3><b>Reptiles and Amphibians (Herps)</b>
           </h3></span> </a> 
           <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelInfo"><span class="esri-icon esri-icon-close" aria-hidden="true" ></span></a>  
         </div>
@@ -139,8 +146,8 @@
 
       <div id="collapseInfo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingInfo" >
         <div class="panel-body" style="height: 500px; width: 400px; background-color: #316b98;">
-          <p></p><b><p>
-            Interested in learning more about Maryland's reptiles and amphibians?</b> </p><p>
+          <p></p><b><h4>
+            Interested in learning more about Maryland's reptiles and amphibians?</b> </h4><p>
             First lets go over the definitions of what reptiles and amphibians are... </p><p>
             According to National Geographic, Reptiles are cold-blooded vertebrates. (Vertebrates have backbones.) They have dry skin covered with scales or bony plates and usually lay soft-shelled eggs.Amphibians are cold-blooded vertebrates (vertebrates have backbones) that don’t have scales. They live part of their lives in water and part on land.</p><p>
                Reptiles and amphibians are collectively called herps (from herpetology , the study of amphibians and reptiles). Think you've seen 
@@ -200,14 +207,14 @@
 
     <div id="panelLegend" class="panel collapse">
       <div id="headingLegend" class="panel-heading" role="tab">
-        <div class="panel-title">
+        <div class="panel-title"style="height: 59px; width: 400px; background-color: #c2c3b3;">
           <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseLegend" aria-expanded="false" aria-controls="collapseLegend"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span><span class="panel-label">Legend</span></a> 
           <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelLegend"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a> 
         </div>
       </div>
-      <div id="collapseLegend" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingLegend">
-        <div class="panel-body">            
-          <div id="legendDiv"></div>
+      <div id="collapseLegend" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingLegend" style="height: 500px;">
+        <div class="panel-body"style=" width: 400px; height: 500px; background-color: #316b98;">            
+          <div id="legendDiv" style=" width: 400px; height: 500px; background-color: #316b98;"></div>
         </div>
       </div>
     </div>
@@ -303,7 +310,7 @@ This park is open every day! Check our Operating Hours and Seasons page for the 
         container: "mapViewDiv",
         map: map,
         padding: {
-          top: 150,
+          top: 95,
           bottom: 0
         },
         ui: {components: []}
@@ -393,29 +400,29 @@ const reportLayer = new FeatureLayer({
   
 
 
-//       const sqlExpressions = ["Filter Points of Interest", "Filter = 'Clear Filter'", "Category = 'Ferry'", "Category = 'Food'", "Category = 'Lodging'", "Category= 'Scenic'"];
+      const sqlExpressions = ["Filter Points of Interest", "Filter = 'Clear Filter'", "Category = 'Park'", "Category = 'Learning Center'", "Category = 'Wildlife Santuary'", "Category= 'Other'"];
 
-// // UI
-// const selectFilter = document.createElement("select");
-// selectFilter.setAttribute("class", "esri-widget esri-select");
-// selectFilter.setAttribute("style", "width: 275px; font-family: Avenir Next W00; font-size: 1em;");
+// UI
+const selectFilter = document.createElement("select");
+selectFilter.setAttribute("class", "esri-widget esri-select");
+selectFilter.setAttribute("style", "width: 275px; font-family: Avenir Next W00; font-size: 1em;");
 
-// sqlExpressions.forEach(function(sql){
-//   let option = document.createElement("option");
-//   option.value = sql;
-//   option.innerHTML = sql;
-//   selectFilter.appendChild(option);
+sqlExpressions.forEach(function(sql){
+  let option = document.createElement("option");
+  option.value = sql;
+  option.innerHTML = sql;
+  selectFilter.appendChild(option);
+});
+
+view.ui.add(selectFilter, "top-left");
+// const filExpand = new Expand({
+// view: view,
+// content: selectFilter
+
 // });
+// view.ui.add(filExpand, "top-left");
 
-// view.ui.add(selectFilter, "top-right");
-// // const filExpand = new Expand({
-// // view: view,
-// // content: selectFilter
-
-// // });
-// // view.ui.add(filExpand, "top-left");
-
-// // Add a feature layer to map with all features visible on client (no filter)
+// Add a feature layer to map with all features visible on client (no filter)
 // const poiLayer = new FeatureLayer({
 //   url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/USVI_Points_of_Interest_/FeatureServer",
 //   outFields: ["*"],
@@ -430,16 +437,16 @@ const reportLayer = new FeatureLayer({
 // map.add(poiLayer);
 
 
-// // Server-side filter
-// function setFeatureLayerFilter(expression) {
-//   poiLayer.definitionExpression = expression;
-// }
+// Server-side filter
+function setFeatureLayerFilter(expression) {
+  poiLayer.definitionExpression = expression;
+}
 
 
-// // Event listener
-// selectFilter.addEventListener('change', function (event) {
-//   setFeatureLayerFilter(event.target.value);
-// });
+// Event listener
+selectFilter.addEventListener('change', function (event) {
+  setFeatureLayerFilter(event.target.value);
+});
 
 // const basemaps = new BasemapGallery({
 //  view,

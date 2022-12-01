@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://esri.github.io/calcite-maps/dist/css/calcite-maps-arcgis-4.x.min-v0.10.css">
 
   <!-- ArcGIS JS 4 -->
-  <link rel="stylesheet" href="https://js.arcgis.com/4.24/esri/themes/dark/main.css">
+  <link rel="stylesheet" href="https://js.arcgis.com/4.24/esri/themes/light/main.css">
 
   <style>
     html,
@@ -24,31 +24,60 @@
       height: 100%;
       width: 100%;
     }
+    #modal {
+	background-color: rgba(0,0,0,0.4);
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 1;
+	overflow: auto;
+}
+
+#modal-textbox {
+	background-color: white;
+	height: 350px;
+	width: 550px;
+	border-radius: 2px;
+	margin: 150px auto;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
 
     h1{
       color: #dedb82;;
-      font-size:18pt;
-      font-family: "Comic Sans MS", cursive, sans-serif;
+      font: 28pt;
+      font-family: "Berlin", sans-serif;
     }
     h2{
-      color: #316b98;;
-      font-size: 13pt;
+      color: #f3f6f8;;
+      font-size: 10pt;
       font-family: "Comic Sans MS", cursive, sans-serif;
     }
     h3{
       color: #3d55ac;
       font-size: 13pt;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    h5{
+      color: #75bd3d;
+      font-size: 18pt;
       font-family: "Comic Sans MS", cursive, sans-serif;
     }
 
     h4{
-      color: #cddbd8;
-      font-family:  "Comic Sans MS", cursive, sans-serif;
-      font-size: medium;
+      color: #70bd94;
+      font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      font-size: large;
 
     }
+    dataButton{
+      color: aquamarine;
+      font-family:  "Comic Sans MS", cursive, sans-serif;
+    }
     p{
-      color: #cddbd8;
+      color: #69bdab;
       font-family:  "Comic Sans MS", cursive, sans-serif;
       font-size: small;
 
@@ -65,47 +94,76 @@
 <body class="calcite-maps calcite-nav-top">
   <!-- Navbar -->
 
-  <nav class="navbar calcite-navbar navbar-fixed-top calcite-text-light calcite-bgcolor-dark-blue" style="height: 100px;">
+  <nav class="navbar calcite-navbar navbar-fixed-top calcite-text-ligh calcite-bgcolor-dark-blue" style="height: 100px;">
     <!-- Menu -->
     <div class="dropdown calcite-dropdown calcite-text-light calcite-bgcolor-dark-blue" role="presentation" style="height: 100px; width: 75px;">
-      <a class="dropdown-toggle" role="menubutton" aria-haspopup="true" aria-expanded="false" tabindex="0" style="height: 100px; width: 75px;">
-        <div class="calcite-dropdown-toggle">
+      <a class="dropdown-toggle" role="menubutton" aria-haspopup="true" aria-expanded="false" tabindex="0" style="height: 100px; width: 75px; margin-top: 10px;">
+        <img src="img/Learn.png">
+        <!-- <div class="calcite-dropdown-toggle">
           <span class="sr-only">Toggle dropdown menu</span>
           <span></span>
           <span></span>
           <span></span>
           <span></span>
-        </div>
+        </div> -->
       </a>
       <ul class="dropdown-menu calcite-bgcolor-dark-blue" role="menu">
-        <li><a role="menuitem" tabindex="0" data-target="#panelInfo" aria-haspopup="true"><span class="glyphicon glyphicon-info-sign"></span> <p>Reptiles and Amphibians</p></a></li>
-        <li><a role="menuitem" tabindex="0" data-target="#panelMammel" aria-haspopup="true"><span class="glyphicon glyphicon-info-sign"></span> <p>Mammals (not ready)</p></a></li>
-        <!-- <li><a role="menuitem" tabindex="0" data-target="#panelInst" aria-haspopup="true"><span class="glyphicon glyphicon-book"></span> <p>Instructions</p></a></li> -->
-        <li><a role="menuitem" tabindex="0" href="#" data-target="#panelLegend" aria-haspopup="true"><span class="glyphicon glyphicon-list" ></span> <p>Legend</p></a></li>
-        <li><a role="menuitem" tabindex="0" href="#" id="calciteToggleNavbar" aria-haspopup="true"><span class="glyphicon glyphicon-fullscreen"></span> <p>Full Map</p></a></li>
-        <li><a role="menuitem" tabindex="0" href="#" data-target="#panelSour" aria-haspopup="true"><span class="glyphicon glyphicon-list-alt"></span> <p>Sources</p></a></li>
+        <li><a role="menuitem" tabindex="0" data-target="#panelInfo" aria-haspopup="true"><span class="glyphicon glyphicon-info-sign"></span> <p><b>Reptiles and Amphibians</b></p></a></li>
+        <li><a role="menuitem" tabindex="0" data-target="#panelMammal" aria-haspopup="true"><span class="glyphicon glyphicon-info-sign"></span> <p><b>Mammals </b></p></a></li>
+        <li><a role="menuitem" tabindex="0" data-target="#panelbird" aria-haspopup="true"><span class="glyphicon glyphicon-info-sign"></span><p><b>Birds</b></p> </a></li>
+        <li><a role="menuitem" tabindex="0" href="#" data-target="#panelLegend" aria-haspopup="true"><span class="glyphicon glyphicon-list" ></span> <p><b>Legend</b></p></a></li>
+        <li><a role="menuitem" tabindex="0" data-target="#panelHome" aria-haspopup="true"><span class="glyphicon glyphicon-globe"></span> <p><b>Home Panel</b></p></a></li>
+        
       </ul>
     </div>
+    <div class="dropdown calcite-dropdown calcite-text-light calcite-bgcolor-dark-blue"  style="height: 100px; width: 150px; margin-left: 90px;">
+      <a class="dropdown-toggle" role="menubutton" aria-haspopup="true" aria-expanded="false" tabindex="0" style="height: 100px; width: 150px; margin-top: 3px;">
+        <!-- <h4>Did you see an animal?</h4> -->
+        <img src="img/report4.png">
+      </a>
+      <ul class="dropdown-menu calcite-bgcolor-dark-blue" role="menu">
+        <li><a role="menuitem" tabindex="0" href="#" data-target="#panelEditor" aria-haspopup="true"></span><p><b>Add a Sighting</b></p></a></li>
+      </ul>
+    </div>
+    
+    <!-- <div class="dropdown calcite-dropdown calcite-text-light calcite-bgcolor-dark-blue"  style="height: 100px; width: 150px;">
+      <a class="dropdown-toggle" role="menubutton" aria-haspopup="true" aria-expanded="false" tabindex="0" style="height: 100px; width: 150px; margin-right: 10px;">
+        <h4>Did you see an animal?</h4>
+        <img src="img/report3.PNG">
+      </a>
+      <ul class="dropdown-menu calcite-bgcolor-dark-blue" role="menu">
+        <li><a role="menuitem" tabindex="0" href="#" data-target="#panelEditor" aria-haspopup="true"><span class="glyphicon glyphicon-list" ></span> <p>Add a Sighting</p></a></li>
+      </ul>
+    </div> -->
+
+    
     <!-- Title -->
-    <div class="calcite-title calcite-overflow-hidden">
-      <span class="calcite-title-main"><h1><b>Maryland Wildlife Explorer</b></h1> </span>
-      <span class="calcite-title-divider hidden-xs"></span>t
-      <span class="calcite-title-sub hidden-m" style="color: #dedb82;"><a href="https://jen-johnson.github.io/Practicum/img/Navigation_Guide.PNG" target="_blank"><p>Help Menu</p></a></span>
+    <div class="calcite-title calcite-overflow-hidden" style="margin-left: 155px;">
+      <span class="calcite-title-main" ><img src="img/title.PNG"> </span>
+      <span class="calcite-title-sub hidden-m" ></span>
+      <!-- <span class="calcite-title-divider hidden-xs"></span>
+      <span class="calcite-title-sub hidden-m" ><img src="img/Picture2.PNG"></span>
       <span class="calcite-title-divider hidden-xs"></span>
-      <span class="calcite-title-sub hidden-xs" style="color: #dedb82;">BETA WEBSITE FOR USER TESTING ONLY</span>
+      <button> Help</button><a role="menuitem" tabindex="0" data-target="#panelInfo" aria-haspopup="true"><span class="glyphicon glyphicon-info-sign"></span> <p>Mammals (not ready)</p></a>
+      <span class="calcite-title-sub hidden-xs" style="color: #5c992e;">BETA WEBSITE FOR USER TESTING ONLY</span> -->
     </div>
     <!-- Nav -->
      <ul class="nav navbar-nav calcite-nav">
-      <li>
-        <div class="calcite-navbar-search calcite-search-expander">
-          <div id="searchWidgetDiv"></div>
-        </div>
-      </li>
-      <li>
-        <div class="calcite-navbar-layerlist calcite-layerlist-expander">
-          <div id="layerlisthWidgetDiv"></div>
-        </div>
-      </li>
+      
+      <button id="openModal" style="height: 25px; background-color: #31986f; margin-right: 10px; margin-top: 5px;">Welcome</button>
+      <div id="modal">
+        <div id="modal-textbox" style="background-color: #202931;">
+          <a id="close" href="#">Close</a>
+            <h4> Welcome to the Maryland Wildlife Explorer Web App!<h4><h2 style="padding-left: 10px; padding-right: 10px"><b>Did you know you can help contribute to science within your own backyard?</b></h2>
+            <h2 style="padding-left: 10px; padding-right: 10px"> This application seeks to educate the next generation of environmentalists within the state of Maryland. Here you can learn about various species of animals found within the state, find places to visit to learn more about the environemt, and even contribute to science.
+            </h2>
+            <p style="padding-left: 10px; padding-right: 10px">Use the <img src="img/miniLearn.png"> Tab to switch panels. This application includes panels for reptiles and amphibians, mammals, and birds, you can also use the field guides to identify species. If you think you saw an animal, click <img src="img/minian.png">  to add your sighting to our database. Happy Exploring.</p>
+            <p style="padding-left: 10px; padding-right: 10px">If you need help navigating the map application and its tools, click the Help button in the top right corner for a graphic. </p>
+          </div>
+      </div>
+
+      <button id="openModal" style="height: 25px; background-color: #31986f; padding-right: 10px; margin-top: 5px;">Help</button>
+      
     </ul> 
     
 
@@ -123,13 +181,13 @@
 
   <!-- Panels -->
 
-  <div class="calcite-panels calcite-panels-right calcite-text-light calcite-bgcolor-dark-blue panel-group " style="background-color: #316b98; margin-top: 50px; height: 620px;">
+  <div class="calcite-panels calcite-panels-right calcite-text-light calcite-bgcolor-dark-blue panel-group " style="background-color: #88b9df; margin-top: 32px; margin: right 0; height: 500px;">
 
-    <!-- Panel - Basemaps -->
+    
 
-    <div id="panelInfo" class="panel collapse in">
+    <div id="panelInfo" class="panel collapse" style="background-color:#316b98;">
       
-      <div id="headingInfo" class="panel-heading" role="tab"style=" background-color:  #dedb82; position: center;">
+      <div id="headingInfo" class="panel-heading" role="tab"style=" background-color:  #70bd94; position: center;">
         <div class="panel-title"style="height:50px; width: 400px; ">
           
           <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseInfo"  aria-expanded="true" aria-controls="collapseInfo" ><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span><span class="panel-label"><h3><b>Reptiles and Amphibians (Herps)</b>
@@ -137,74 +195,57 @@
           <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelInfo"><span class="esri-icon esri-icon-close" aria-hidden="true" ></span></a>  
         </div>
       </div>
-      <div class="panel-title"style="height: 79px;px; width: 400px; background-color: #316b98; ">
-      
-        <p> <h2>//n is     hidden text</h2>  <a href="https://dnr.maryland.gov/wildlife/Documents/CommonBackyardHerps.pdf" target="_blank">
-          <img src="img/frog2.PNG" >
-          </a> <- Click here for field guide!</p>  
-      </div>
-
-      <div id="collapseInfo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingInfo" >
-        <div class="panel-body" style="height: 500px; width: 400px; background-color: #316b98;">
-          <p></p><b><h4>
-            Interested in learning more about Maryland's reptiles and amphibians?</b> </h4><p>
-            First lets go over the definitions of what reptiles and amphibians are... </p><p>
-            According to National Geographic, Reptiles are cold-blooded vertebrates. (Vertebrates have backbones.) They have dry skin covered with scales or bony plates and usually lay soft-shelled eggs.Amphibians are cold-blooded vertebrates (vertebrates have backbones) that don’t have scales. They live part of their lives in water and part on land.</p><p>
-               Reptiles and amphibians are collectively called herps (from herpetology , the study of amphibians and reptiles). Think you've seen 
-            one? Click the image above to see the common Herps in Maryland</p>
-
-</p>
-            
-        <p><b></b></p><a href="https://kids.nationalgeographic.com/animals/reptiles/ " target="_blank">Click Here for more Nat Geo Information</a>
+      <div id="collapseInfo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingInfo" style="background-color:#316b98; width: 400px; margin-left: 10px;" >
+        <b><h4>
+          Interested in learning more about Maryland's reptiles and amphibians?</b> </h4><p>
+          First lets go over the definitions of what reptiles and amphibians are... </p><p>
+          According to National Geographic, Reptiles are cold-blooded vertebrates. (Vertebrates have backbones.) They have dry skin covered with scales or bony plates and usually lay soft-shelled eggs.Amphibians are cold-blooded vertebrates (vertebrates have backbones) that don’t have scales. They live part of their lives in water and part on land.</p><p>
+             Reptiles and amphibians are collectively called herps (from herpetology , the study of amphibians and reptiles). Think you've seen 
+          one? Click the button below to see the common Herps in Maryland</p>
+          </p>
+        <a id="dataLink" href="https://dnr.maryland.gov/wildlife/Documents/CommonBackyardHerps.pdf" target="_blank">
+          <button id="dataButton" style="color:rgb(105, 214, 105); background-color: rgb(198, 220, 213); margin-left: 115px;"><h4><b>Herp Feild Guide</b></h4></button>
+        </a>
+        <img src="img/herp1.PNG"  style="margin-left: 73px; margin-top: 20px;">
+        <div id="HerpInfo" class="panel-body" style="height: 700px; width: 400px; background-color: #316b98;">
+       <p></p>
         </div>
      </div>
     </div>
-
-    <!-- <div id="panelOpen" class="panel collapse in">
+    <div id="panelHome" class="panel collapse in" style="background-color:#316b98;">
       
-      <div id="headingOpen" class="panel-heading" role="tab"style=" background-color:  #7FFF00; position: right;">
-        <div class="panel-title"style="height:500px; width: 800px; ">
+      <div id="headingHome" class="panel-heading" role="tab"style=" background-color:  #70bd94; position: center;">
+        <div class="panel-title"style="height:50px; width: 400px; ">
           
-          <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseOpen"  aria-expanded="true" aria-controls="collapseInfo" ><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span><span class="panel-label"><h3>Reptiles and Amphibians (Herps)
+          <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseHome"  aria-expanded="true" aria-controls="collapseHome" ><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span><span class="panel-label"><h3><b>Home</b>
           </h3></span> </a> 
-          <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelOpen"><span class="esri-icon esri-icon-close" aria-hidden="true" ></span></a>  
+          <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelHome"><span class="esri-icon esri-icon-close" aria-hidden="true" ></span></a>  
         </div>
       </div>
-      <div class="panel-title"style="height: 500px;px; width: 800px; background-color: #316b98; ">
-      
-        <p> <h2>//n is     hidden text</h2>  <a href="https://dnr.maryland.gov/wildlife/Documents/CommonBackyardHerps.pdf" target="_blank">
-          <img src="img/frog2.PNG" >
-          </a> <- Click here for field guide!</p>  
-      </div>
-
-      <div id="collapseOpen" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingInfo" >
-        <div class="panel-body" style="height: 200px; width: 800px; background-color: #316b98;">
-
-
-</p>
+      <div id="collapseHome" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingHome" style="background-color:#316b98; width: 400px; margin-left: 10px;" >
+        <h4><b>
+          Welcome to the app built for the future environmentalists!  </b></h4>
+          <p> An environmentalist is someone who cares about and advocates for the environment - A solid understanding of your surrounding environment (including wildlife) will make you a better advocate. This application will help you learn
+            more about Maryland's by providing field guides to identify species, allowing you to view real-time animal sightings, and even contribute to scientific research by adding your own sightings!. 
+          
+            </p><p><b>Let's Practice.. Do you know what animal is caputed in the image below?</b></p>
+            <img src="img/frog4.PNG" style="margin-left: 132px;">
+            <p></p>
+            <p>Try and find out! Here's a hint, the reptiles and amphibians panel may be helpful</p>
             
-        <p><b></b></p><a href="https://kids.nationalgeographic.com/animals/reptiles/ " target="_blank">Click Here for more Nat Geo Information</a>
+            
+                 <h2>Below are some helpful links to external pages</h2>
+                 <a id="dataLink" href="https://getthekidsoutside.com/citizen-science-for-kids/" target="_blank">
+                  <button id="dataButton" style="color:rgb(105, 214, 105); background-color: rgb(198, 220, 213); margin-left: 105px;"><h4><b>Citizen Science for Kids</b></h4></button>
+                </a>
+                <a id="dataLink" href="https://www.epa.gov/eco-research/ecoregions" target="_blank">
+                  <button id="dataButton" style="color:rgb(105, 214, 105); background-color: rgb(198, 220, 213); margin-left: 95px;"><h4><b>Understanding Ecoregions</b></h4></button>
+                </a>
         </div>
      </div>
-    </div> -->
+    
 
-    <!-- <div id="panelInst" class="panel collapse in">
-      <div id="headingInfo" class="panel-heading" role="tab">
-        <div class="panel-title">
-          <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseInst"  aria-expanded="true" aria-controls="collapseInst"><span class="glyphicon glyphicon-book" aria-hidden="true"></span><span class="panel-label"><h2>Instructions
-          </h2></span></a> 
-          <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelInst"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>  
-        </div>
-      </div>
-      <div id="collapseInst" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingInfo">
-        <div class="panel-body">
-        <img src="img\buttons3.png">
-        </div>
-     </div>
-    </div> -->
-
-    <!-- Panel - Legend -->
-
+<!-- legend -->
     <div id="panelLegend" class="panel collapse">
       <div id="headingLegend" class="panel-heading" role="tab">
         <div class="panel-title"style="height: 59px; width: 400px; background-color: #c2c3b3;">
@@ -212,37 +253,85 @@
           <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelLegend"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a> 
         </div>
       </div>
-      <div id="collapseLegend" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingLegend" style="height: 500px;">
+      <div id="collapseLegend" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingLegend" style="height: 500px; background-color: #70bd94;">
         <div class="panel-body"style=" width: 400px; height: 500px; background-color: #316b98;">            
           <div id="legendDiv" style=" width: 400px; height: 500px; background-color: #316b98;"></div>
         </div>
       </div>
     </div>
-
-    <!-- <div id="panelSour" class="panel collapse in">
-      <div id="headingSour" class="panel-heading" role="tab">
-        <div class="panel-title">
-          <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseSour"  aria-expanded="false" aria-controls="collapseSour"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span><span class="panel-label"><h2>About
-          </h2></span></a> 
-          <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelSour"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>  
+    <div id="panelEditor" class="panel collapse">
+      <div id="headingEditor" class="panel-heading" role="tab">
+        <div class="panel-title"style="height: 59px; width: 400px; background-color:  #316b98;">
+          <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseEditor" aria-expanded="false" aria-controls="collapseEditor"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span><span class="panel-label">Add an Observation</span></a> 
+          <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelEditor"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a> 
         </div>
       </div>
-      <div id="collapseSour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSour">
-        <div class="panel-body">
-          <p><b>
-            Welcome to Virgin Islands National Park!</b>
-Virgin Islands National Park is comprised of 7,259 acres of terrestrial habitat, which is about 60%, of the island's land mass. The park also includes 5,650 acres of adjacent submerged lands. The park owns the ridge tops to the reefs providing protection and preservation for tropical and migrating birds, fish, corals and other marine life, as well as some 800 species of plants.
+      <div id="collapseEditor" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingEditor" style="height: 500px; padding-left: 10px;">
 
-This park is open every day! Check our Operating Hours and Seasons page for the up-to-date visitor center hours and offerings.
-</p>
-            
-        <p><b></b></p><a href="https://www.nps.gov/viis/planyourvisit/basicinfo.htm">For more about the Park</a>
+      </div>
+      <div class="panel-body"style=" width: 400px; height: 600px; background-color: #316b98;">            
+        <div id="EditorDiv" style=" width: 400px; height: 600px; background-color: #316b98; padding-right: 10px;"></div>
+      </div>
+    </div>
+
+    <div id="panelMammal" class="panel collapse" style="background-color:#316b98;">
+      
+      <div id="headingMammal" class="panel-heading" role="tab"style=" background-color:  #70bd94; position: center;">
+        <div class="panel-title"style="height:50px; width: 400px; ">
+          
+          <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseMammal"  aria-expanded="true" aria-controls="collapseMammal" ><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span><span class="panel-label"><h3><b>Mammals</b>
+          </h3></span> </a> 
+          <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelMammal"><span class="esri-icon esri-icon-close" aria-hidden="true" ></span></a>  
+        </div>
+      </div>
+      <div id="collapseMammal" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingMammal" style="background-color:#316b98; width: 400px; margin-left: 10px;" >
+        <b><h4>
+          Interested in learning more about Maryland's Mammals?</b> </h4><p>
+          First lets go over the definitions of what a mammal is... </p><p>
+            Mammals are animals that are warm-blooded vertebrates (vertebrates have backbones) with hair. They feed their young with milk and have a more well-developed brain than other types of animals
+             Did you know humans are mammals?? </p><P><B>Fun Fact:</B> Some mammals can fly... Did you know bats are also mammals? Maryland is home to 10 species of bats </P> <p>Think you've seen 
+          one or another mammal? Click the button below to see the common mammals in Maryland</p>
+          </p>
+        <a id="dataLink" href="https://dnr.maryland.gov/wildlife/Documents/CommonMammals.pdf" target="_blank">
+          <button id="dataButton" style="color:rgb(105, 214, 105); background-color: rgb(198, 220, 213); margin-left: 105px;"><h4><b>Mammals Feild Guide</b></h4></button>
+        </a>
+        <img src="img/mammal1.PNG" style="margin-left: 73px; margin-top: 20px;" >
+        <div id="HerpInfo" class="panel-body" style="height: 700px; width: 400px; background-color: #316b98;">
+       <p></p>
         </div>
      </div>
-    </div> -->
+    </div>
 
+    <div id="panelbird" class="panel collapse" style="background-color:#316b98;">
+      
+      <div id="headingbird" class="panel-heading" role="tab"style=" background-color:  #70bd94; position: center;">
+        <div class="panel-title"style="height:50px; width: 400px; ">
+          
+          <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapsebird"  aria-expanded="true" aria-controls="collapsebird" ><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span><span class="panel-label"><h3><b>Reptiles and Amphibians (Herps)</b>
+          </h3></span> </a> 
+          <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelbird"><span class="esri-icon esri-icon-close" aria-hidden="true" ></span></a>  
+        </div>
+      </div>
+      <div id="collapsebird" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingbird" style="background-color:#316b98; width: 400px; margin-left: 10px;" >
+        <b><h4>
+          Interested in learning more about Maryland's birds?</b> </h4>
+          <p>Birds are warm-blooded, air-breathing vertebrates. Their body is covered with feathers. They have beaks, wings and scale covered legs.</p>
+          <p></p>
+          <p>
+          There are over 450 bird species have been documented in Maryland, and over half of these species have nested in the State. 
+          If you want to learn more about Maryland's bird population, <a href = 'https://dnr.maryland.gov/wildlife/Pages/plants_wildlife/mdbirds.aspx'>click here</a>. Otherwise use the field guide below to help you identify the common feeder birds in the state.</p><p>
+          </p>
+          </p>
+        <a id="dataLink" href="https://dnr.maryland.gov/wildlife/Documents/CommonFeederBirds.pdf" target="_blank">
+          <button id="dataButton" style="color:rgb(105, 214, 105); background-color:  rgb(198, 220, 213); margin-left: 100px;"><h4><b>Common Bird Feild Guide</b></h4></button>
+        </a>
+        <img src="img/bird.png" style="margin-left: 73px; margin-top: 20px;">
+        <div id="HerpInfo" class="panel-body" style="height: 700px; width: 400px; background-color: #316b98;">
+       <p></p>
+        </div>
+     </div>
+    </div>
   </div>
-
   <!-- /.calcite-panels -->
 
   <script type="text/javascript">
@@ -284,19 +373,76 @@ This park is open every day! Check our Operating Hours and Seasons page for the 
       "esri/symbols/WebStyleSymbol",
       "esri/widgets/Expand",
       "esri/widgets/Editor",
+      "esri/widgets/Attachments",
       // UI Design 
       "bootstrap/Collapse",
       "bootstrap/Dropdown",
       "calcite-maps/calcitemaps-v0.10",
       "calcite-maps/calcitemaps-arcgis-support-v0.10",
       "dojo/domReady!"
-    ], function(WebMap, MapView, esriConfig, Home, Zoom, Compass, Search, Legend, BasemapToggle, ScaleBar, Attribution, vectorTileLayer, TileLayer, FeatureLayer, SimpleRenderer,  LayerList, WebStyleSymbol,Expand, Editor, Collapse, Dropdown, CalciteMaps, CalciteMapArcGISSupport) {
+    ], function(WebMap, MapView, esriConfig, Home, Zoom, Compass, Search, Legend, BasemapToggle, ScaleBar, Attribution, vectorTileLayer, TileLayer, FeatureLayer, SimpleRenderer,  LayerList, WebStyleSymbol,Expand, Editor, Attachments, Collapse, Dropdown, CalciteMaps, CalciteMapArcGISSupport) {
 
-      /******************************************************************
-       *
-       * Create the map, view and widgets
-       * 
-       ******************************************************************/
+      
+ 
+ 
+ 
+const trailSymbol= {
+  type:"simple-marker",
+  size: "5pt",
+  color:"#d92b30"
+}
+const blueSymbol= {
+  type:"simple-marker",
+  size: "5pt",
+  color:"#ddda08"
+}
+const yellowSymbol= {
+  type:"simple-marker",
+   size: "5pt",
+  color:"#d208dd"
+}
+const pinkSymbol= {
+  type:"simple-marker",
+  size: "5pt",
+  color:"#29f2f2"
+}
+ 
+ 
+ 
+ 
+
+const webbStyleSymbol = new WebStyleSymbol({
+  name: "esri-pin-2",
+  styleName: "Esri2DPointSymbolsStyle"
+});
+const testRenderer = {
+  type: "unique-value",
+  legendOptions:{
+    title:"Activity Type"
+  },
+  defaultSymbol: webbStyleSymbol,
+  
+  defaultLabel: "Other",
+  field: "Category",
+
+  uniqueValueInfos: [
+    {
+      value:"Park",
+      symbol:trailSymbol,
+      label: "Park"
+    },
+    {
+      value:"Learning Center",
+      symbol:blueSymbol,
+      label: "Learning Center"
+    },
+    {
+      value:"Wildlife Sanctuary",
+      symbol:yellowSymbol,
+      label: "Wildlife Sanctuary"
+    }
+  ]
+};
 
       // Map
       var map = new WebMap({
@@ -328,8 +474,6 @@ This park is open every day! Check our Operating Hours and Seasons page for the 
       });
       CalciteMapArcGISSupport.setSearchExpandEvents(searchWidget);
 
-      // Map widgets
-      
 
       // Panel widgets - add legend
       var legendWidget = new Legend({
@@ -341,66 +485,7 @@ This park is open every day! Check our Operating Hours and Seasons page for the 
       view.ui.move("zoom", "top-left");
 
 
-//ADDING LAYERSS
-
-// let redSym = {
-//   type: "simple-fill",  // autocasts as new SimpleFillSymbol()
-//   // color: "green",
-//   outline: {  // autocasts as new SimpleLineSymbol()
-//     color: "green",
-//     width: "2px"
-//   }
-// }; 
-// const redRenderer={
-//   type:"simple",
-//   symbol:redSym
-// }
-
-    
-      
-//       const ecoLayer = new FeatureLayer({
-//         url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/region_data/FeatureServer",
-        
-//         renderer: redRenderer,
-//         popupTemplate: {
-//           title: "{name}",
-//           lastEditInfoEnabled: false,
-         
-         
-//           content: [
-//           {
-//               type: "text", // TextContentElement
-//               text: "<b>Ecoregion Name: </b>{NA_L3NAME}"
-//             },
-            
-            
-//             {
-//               type: "attachments" // AttachmentsContentElement
-//             }
-//             // {
-//             //   type:"media",
-//             //   mediaInfos:[
-//             //    {title:"<b> Picture</b>",
-//             //   type:"image",
-//             //   // sourceURL:
-//             //   //         "https://www.sunset.com/wp-content/uploads/96006df453533f4c982212b8cc7882f5-800x0-c-default.jpg"} 
-//             //  } ]
-
-
-//             // }
-//           ]
-//         }
-//       });
-
-//       map.add(ecoLayer);
-//INSERT UNIQUE VALUE POI STUFF HERE
-const reportLayer = new FeatureLayer({
-        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/ObserverLayer/FeatureServer/2"
-      });
-  
-
-
-      const sqlExpressions = ["Filter Points of Interest", "Filter = 'Clear Filter'", "Category = 'Park'", "Category = 'Learning Center'", "Category = 'Wildlife Santuary'", "Category= 'Other'"];
+      const sqlExpressions = ["Find Places to Visit", "Filter = 'Clear Filter'", "Category = 'Park'", "Category = 'Learning Center'", "Category = 'Wildlife Sanctuary'", "Category= 'Other'"];
 
 // UI
 const selectFilter = document.createElement("select");
@@ -415,28 +500,49 @@ sqlExpressions.forEach(function(sql){
 });
 
 view.ui.add(selectFilter, "top-left");
-// const filExpand = new Expand({
-// view: view,
-// content: selectFilter
-
-// });
-// view.ui.add(filExpand, "top-left");
-
-// Add a feature layer to map with all features visible on client (no filter)
-// const poiLayer = new FeatureLayer({
-//   url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/USVI_Points_of_Interest_/FeatureServer",
-//   outFields: ["*"],
-//   renderer: testRenderer,
-//   popupTemplate: {
-//     title: "{name}",
-//     content: "Description: {Descriptio}. "
-//   },
-//   definitionExpression: "1=0"
-// });
-// map.add(poiLayer);
-// map.add(poiLayer);
 
 
+const poiLayer = new FeatureLayer({
+  url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Places_to_Visit/FeatureServer",
+  renderer:testRenderer,
+  outFields: ["*"],
+    popupTemplate: {
+    title: "{name}",
+   
+       
+
+    content: [
+      {
+     type: "text",
+     text:"{info}"
+    },
+    {
+      type:"text",
+      text:
+      `<p><a href={website}>Click here to visit our website</a></p>`
+    }
+  ]
+    
+        
+     
+    
+    
+
+  },
+  
+  // definitionExpression: "1=0"
+});
+
+map.add(poiLayer);
+map.add(poiLayer);
+
+// const reportLayer = new FeatureLayer({
+//         url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/MD_Wildlife/FeatureServer"
+//       });
+
+//       map.add(reportLayer)
+
+            
 // Server-side filter
 function setFeatureLayerFilter(expression) {
   poiLayer.definitionExpression = expression;
@@ -448,16 +554,7 @@ selectFilter.addEventListener('change', function (event) {
   setFeatureLayerFilter(event.target.value);
 });
 
-// const basemaps = new BasemapGallery({
-//  view,
-//   container: "basemaps-container"
-//  });
-//  view.ui.add(layExpand, "bottom-left")
 
-      // const bookmarks = new Bookmarks({
-      //   view,
-      //   container: "bookmarks-container"
-      // });
 
       const layerList = new LayerList({
         view,
@@ -476,14 +573,11 @@ view.ui.add(layExpand, "top-left")
         container: "legend-container"
       });
 
-      // const print = new Print({
-      //   view,
-      //   container: "print-container"
-      // });
+
       var home = new Home({
-        view: view
-      });
-      view.ui.add(home, "top-leftt");
+        view: view,
+              });
+      view.ui.add(home, "HerpInfo");
 
       
       const seaWidget = new Search({
@@ -491,9 +585,7 @@ view.ui.add(layExpand, "top-left")
       });
 
       // Add the search widget to the top right corner of the view
-      // view.ui.add(seaWidget, {
-      //   position: "bottom-left"
-      // });
+
     
 const seaExpand = new Expand({
 view: view,
@@ -503,10 +595,9 @@ view.ui.add(seaExpand, "top-left");
 
 const editor = new Editor({
         view,
-        snappingOptions: { // autocasts to SnappingOptions()
-    enabled: false
-  },
-        // container: "editor-container"
+        container:"collapseEditor",
+        
+        
       });
 
     // Add widget to the view
@@ -514,9 +605,11 @@ const editor = new Editor({
 
     const bgExpand = new Expand({
 view: view,
-content: editor
+content: editor,
+container:"testDIV"
+//"HerpInfo"
 });
-view.ui.add(bgExpand, "top-left");
+//view.ui.add(bgExpand, "top-left");
 
       var zoom = new Zoom({
         view: view
@@ -551,10 +644,44 @@ view.ui.add(bgExpand, "top-left");
       });
 
 
+// const poLayer = new FeatureLayer({
+//   url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Places_to_Visit/FeatureServer",
+//   outFields: ["*"],
+  
+//   popupTemplate: {
+//     title: "{name}",
+//     content: "Description: {Descriptio}. "
+//   },
+//   definitionExpression: "1=0"
+// });
+// map.add(poLayer);
+
       
 
     });
+
+    const openBtn = document.getElementById('openModal');
+const modal = document.getElementById('modal')
+const close = document.getElementById('close')
+
+//Functions
+const openModal = () => {
+  modal.style.display = 'block';
+}
+
+const closeModal = () => {
+  modal.style.display = 'none'
+}
+
+//Event Listeners
+openBtn.addEventListener('click', openModal)
+
+close.addEventListener('click', closeModal)
   </script>
+
+  
+  
+  
 
 </body>
 </html>

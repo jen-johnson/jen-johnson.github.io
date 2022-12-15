@@ -1,0 +1,245 @@
+/***** NAVBAR *****/
+
+.navbar {
+    background-color: #249424;
+    border-radius: 0;
+}
+
+/* Navbar title */
+.navbar-default .navbar-brand {
+    color: darkgreen;
+    font-size: px;
+    font-weight: bold;
+}
+
+/* Navbar hover effects */
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus,
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #ebd122;
+    text-decoration: none;
+}
+
+/* Navbar links */
+.navbar-default .navbar-nav > li > a {
+    color: darkgreen;
+    font-size: 16px;
+    padding: 10px;
+}
+
+/* Navbar collapsed styles */
+.navbar-toggler {
+    color: #fff;
+    border-color: #fff;
+    background-color: #468;
+    border-radius: 4px;
+    border: 1px solid;
+    fill: #fff;
+    font-size: 16px;
+    position: relative;
+    margin-right: 10px;
+}
+
+.navbar-toggler:hover,
+.navbar-toggler:focus {
+    background-color: #468;
+    color: #242424;
+    fill: #242424;
+    border-color: #fff;
+
+}
+
+/*** Portfolio pieces ***/
+.portfolio-thumbnail {
+    background-color: #fff;
+    border-color: #863ee3;
+    border-width: 2px;
+    width: 95%;
+}
+
+.portfolio-thumbnail:hover {
+    border-color: #ebd122;
+}
+
+.portfolio-title {
+    font-weight: bold;
+    padding-top: 3%;
+}
+
+/* .portfolio-description {}
+
+.portfolio-image {} */
+
+#about-world {
+    max-height: 200px;
+}
+
+.Resume h3 {
+    font-weight: bold;
+}
+
+hr {
+    border-color: white;
+    border-width: 2px;
+}
+
+p {
+    font-family: Optima, sans-serif;
+    font-size: 20px;
+}
+
+h4 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold
+   
+}
+h2{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold
+}
+h3{
+    font-weight: bold
+}
+a {
+    color: #863ee3;
+}
+
+a:hover {
+    color: #ebd122;
+}
+
+.jumbotron {
+    background-image: url("../assets/mountain3.png");
+    text-align: center;
+    color: #fff;
+    padding: 3%;
+    border-radius: 0px;
+}
+
+.jumbotron2 {
+    background-color: #343a40;
+    text-align: center;
+    color: #343a40;
+    padding: .5%;
+    border-radius: 0px;
+}
+
+
+.jumbotron h2 {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.img-responsive {
+    max-width: 100%;
+    height: auto
+}
+
+body {
+
+    font-family: 'Georgia', sans-serif;
+    background-color: honeydew;
+    color: #000000;
+    
+}
+
+.menu-ui {
+  background:#fff;
+  position:absolute;
+  top:10px;right:10px;
+  z-index:1;
+  border-radius:3px;
+  width:120px;
+  border:1px solid rgba(0,0,0,0.4);
+  }
+  .menu-ui a {
+    font-size:13px;
+    color:#404040;
+    display:block;
+    margin:0;padding:0;
+    padding:10px;
+    text-decoration:none;
+    border-bottom:1px solid rgba(0,0,0,0.25);
+    text-align:center;
+    }
+    .menu-ui a:first-child {
+      border-radius:3px 3px 0 0;
+      }
+    .menu-ui a:last-child {
+      border:none;
+      border-radius:0 0 3px 3px;
+      }
+    .menu-ui a:hover {
+      background:#f8f8f8;
+      color:#404040;
+      }
+    .menu-ui a.active,
+    .menu-ui a.active:hover {
+      background:#3887BE;
+      color:#FFF;
+      }
+
+#mapid {
+    height: 400px;
+    width: 120%;
+    display: right;
+}
+
+#panel {
+    width: 100%;
+    padding: 20px;
+    display: right;
+    vertical-align: top;
+    text-align: center;
+    
+}
+
+.range-slider {
+    width: 100%;
+    column-fill: auto;
+    background-color: aquamarine;
+}
+
+#forward {
+    float: right;
+    background-color: transparent;
+    outline-color: transparent
+   
+}
+
+#reverse {
+    float: left;
+    background-color: transparent
+}
+
+body {
+    
+    font-family: 'Georgia', serif;
+    font-style: bold;
+    background-color: #d0f0c0;
+    color: #242424;
+
+}
+
+H3{
+    font-style: bold
+    
+    
+}
+.content{
+    font-size: 20px
+}
+
+#temporal-legend{
+    border: 2px green;
+    background-color: gainsboro;
+    
+}
+#attribute-legend{
+    background-color: gainsboro;
+    width: 200px;
+    height: 100px;
+    text-align: right
+}
+
